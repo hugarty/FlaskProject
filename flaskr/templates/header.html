@@ -1,0 +1,30 @@
+<!doctype html>
+<title>Deputados mais tops do Brasil</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>Flaskr</h1>
+  <form action="{{ url_for('index')}}", method=post>
+    <h4>Pesquisar por:</h4>
+    <select name="cargo">
+      <option value="Deputados">Deputados</option>
+      <option value="Senadores">Senadores</option>
+      <option value="Partidos">Senadores</option>
+    </select>
+    <h5>Informações</h5>
+<!-- Se selecionar Deputado ou senadores no select 'Cargo' -->
+    <select name="infoDeputadosSenadores">
+      <option value="Cargos">Cargos Ocupados</option>
+      <option value="Partidos">Partidos</option>
+      <option value="Proposições">Proposições</option>
+    </select>
+<!-- Se selecionar partidos no select 'Cargo' -->
+    <select name="infoPartidos">
+      <option value="Integrantes">Integrantes do Partido</option>
+      <option value="Proposições">Proposições</option>
+    </select>
+    <h5>Pesquisar nome</h5>
+    <input type="text" name="pesquisa">
+    <input type="submit" value="Pesquisar">
+  </form>
+  {% block body %}{% endblock %}
+</div>
