@@ -1,0 +1,16 @@
+{% extends "header.html" %}
+{% block body %}
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <span>---------------------------------------------</span>
+  
+  <h1>Partidos.html</h1>
+  <h2>Resultado das pesquisas</h2>
+
+  {% for dado in dados %}
+   <h4> {{ dado.nome }}</h4>
+    {{ dado.id }} <br>
+    {{ dado.sigla }}<br>    
+  {% else %}
+    <li><em>Pesquisa algo ai.</em>
+  {% endfor %}
+{% endblock %}  

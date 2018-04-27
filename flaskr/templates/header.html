@@ -8,22 +8,13 @@
     <select name="cargo">
       <option value="Deputados">Deputados</option>
       <option value="Senadores">Senadores</option>
-      <option value="Partidos">Senadores</option>
-    </select>
-    <h5>Informações</h5>
-<!-- Se selecionar Deputado ou senadores no select 'Cargo' -->
-    <select name="infoDeputadosSenadores">
-      <option value="Cargos">Cargos Ocupados</option>
       <option value="Partidos">Partidos</option>
-      <option value="Proposições">Proposições</option>
+      <option value="Estados">Estado</option>
     </select>
-<!-- Se selecionar partidos no select 'Cargo' -->
-    <select name="infoPartidos">
-      <option value="Integrantes">Integrantes do Partido</option>
-      <option value="Proposições">Proposições</option>
-    </select>
+
     <h5>Pesquisar nome</h5>
-    <input type="text" name="pesquisa">
+    <!-- Aparece o campo de pesquisa se  -->
+    <input type="text" placeholder="Nome  " name="pesquisa">
     <input type="submit" value="Pesquisar">
   </form>
   {% block body %}{% endblock %}
