@@ -32,11 +32,17 @@ def index():
 
 
 
-@app.route('/deputado/<string:deputadoId>', methods=['POST', 'GET'])
+@app.route('/deputado/<string:deputadoId>')
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     return render_template('deputado.html', dados=dados)
 
+
+@app.route('/partido/<string:partidoId>')
+def partido(partidoId):
+    dados = getPartidoPorId(partidoId)
+    return render_template('partido.html', dados=dados)
+    # return '%s' % partidoId
 
 
 
@@ -61,6 +67,11 @@ def getDeputadoPorId (id):
 
 def getPartidos (nome):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?nome='+nome+'&ordenarPor=sigla').json()
+    return r['dados']
+
+
+def getPartidoPorId (id):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos/'+id).json()
     return r['dados']
 
 

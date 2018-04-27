@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+{% block body %}
+  {% if error %}  <p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <span>---------------------------------------------</span>
+  
+  <h1>Partido.html</h1>
+  <h2>Resultado das pesquisas</h2>
+
+  {% if dados %} 
+   <h4> {{ dados.sigla }}</h4>
+    {{ dados.id }} <br>
+    {{ dados.nome }}<br> 
+    {{ dados.status.totalPosse }}<br>
+    <h4>Membros</h4>
+    {{ dados.status.totalMembros }}<br>
+    {{ dados.status.uriMembros }}<br>
+    <h4>Lider</h4>
+    {{ dados.status.lider.nome }}<br>
+    {{ dados.status.lider.uf }}<br>
+  {% else %}
+    Pesquisa algo ai.
+  {% endif %}
+  
+{% endblock %}  

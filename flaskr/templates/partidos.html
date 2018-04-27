@@ -8,6 +8,7 @@
 
   {% for dado in dados %}
    <h4> {{ dado.nome }}</h4>
+    <a href="/partido/{{ dado.id }}">pagina do Partido</a> <br>
     {{ dado.id }} <br>
     {{ dado.sigla }}<br>    
   {% else %}
