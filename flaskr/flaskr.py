@@ -31,6 +31,16 @@ def index():
     return render_template('index.html')
 
 
+
+@app.route('/deputado/<string:deputadoId>', methods=['POST', 'GET'])
+def deputado(deputadoId):
+    dados = getDeputadoPorId(deputadoId)
+    return render_template('deputado.html', dados=dados)
+
+
+
+
+
 #def detalhesDeputadoSenador ():
 
 # Não sei importar outro arquivo .py 
@@ -43,9 +53,16 @@ def getDeputadosPorNome (nome):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?nome='+nome+'&ordenarPor=nome').json()
     return r['dados']
 
+
+def getDeputadoPorId (id):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?id='+id+'&ordenarPor=nome').json()
+    return r['dados']
+
+
 def getPartidos (nome):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?nome='+nome+'&ordenarPor=sigla').json()
     return r['dados']
+
 
 def getEstados ():
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/referencias/uf').json()
