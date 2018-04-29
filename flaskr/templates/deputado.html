@@ -7,17 +7,17 @@
   <h2>Resultado das pesquisas</h2>
 
   {{ idPartido }} <br>
-  {% for dado in dados %}
+  {% if dado %}
    <h4> {{ dado.nome }}</h4>
     {{ dado.uriPartido }} <br>
     {{ dado.uri }} <br>
     {{ dado.id }} <br>
     <a href="/partido/{{ idPartido }}">{{ dado.siglaPartido }}</a> <br>
-    {{ dado.siglaUf }} <br>
+    <a href="/estado/{{ dado.siglaUf }}"> {{ dado.siglaUf }}<br> </a>
     {{ dado.idLegislatura }}<br>
     {{ dado.urlFoto }}<br>
     <a href="#">Proposições do Deputado</a>
   {% else %}
-    <li><em>Pesquisa algo ai.</em>
-  {% endfor %}
+    <h4>Deputado não encontrado</h4>
+  {% endif %}
 {% endblock %}      

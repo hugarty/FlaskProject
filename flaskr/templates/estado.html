@@ -6,23 +6,9 @@
   <h1>Partido.html</h1>
   <h2>Resultado das pesquisas</h2>
 
-  {% if dados %} 
-   <h4> {{ dados.sigla }}</h4>
-    {{ dados.id }} <br>
-    {{ dados.nome }}<br> 
-    {{ dados.status.totalPosse }}<br>
-    <h4>Lider</h4>
-    {{ dados.status.lider.nome }}<br>
-    {{ dados.status.lider.uf }}<br>
-    <h4>Membros</h4>
-    {{ dados.status.totalMembros }}<br>
-  {% else %}
-    Não encontrei seu partido
-  {% endif %}
-
   {% for membro in membrosPartido %}
     <a href="/deputado/{{ membro.id }}"><h5> {{ membro.nome }} </h5></a> 
-    {{ membro.siglaUf }} <br> 
+    {{ membro.siglaPartido }} <br>
   {% else %}
     <i>Não existe ninguém aqui</i>
   {% endfor %}

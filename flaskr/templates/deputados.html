@@ -13,7 +13,7 @@
     {{ dado.id }} <br>
     <a href="/deputado/{{ dado.id }}">pagina do deputado</a> <br>
     {{ dado.siglaPartido }}<br>
-    {{ dado.siglaUf }} <br>
+    <a href="/estado/{{ dado.siglaUf }}"> {{ dado.siglaUf }}<br> </a>
     {{ dado.idLegislatura }}<br>
     {{ dado.urlFoto }}<br>
   {% else %}

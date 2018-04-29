@@ -8,10 +8,13 @@
 
   {% for dado in dados %}
    <h4> {{ dado.nome }}</h4>
+   <a href="/estado/{{ dado.sigla }}"> {{ dado.sigla }}<br>    </a>
     {{ dado.uri }} <br>
     {{ dado.id }} <br>
     {{ dado.sigla }}<br>    
   {% else %}
     <li><em>Pesquisa algo ai.</em>
   {% endfor %}
+
+
 {% endblock %}  

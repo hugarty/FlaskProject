@@ -37,7 +37,7 @@ def index():
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     idPartido = dados[0]['uriPartido'][51:]
-    return render_template('deputado.html', dados=dados, idPartido=idPartido)
+    return render_template('deputado.html', dado=dados[0], idPartido=idPartido)
 
 
 
@@ -49,8 +49,15 @@ def partido(partidoId):
 
 
 
+@app.route('/estado/<string:siglaEstado>')
+def estado(siglaEstado):
+    dados = getDeputadoPorEstado(siglaEstado)
+    return render_template('estado.html', membrosPartido=dados) 
 
-#def detalhesDeputadoSenador ():
+
+#Caso queri pegar o nome do estado a siglado você pode 
+#criar um rest full privado no firebase e dar get nele
+
 
 # Não sei importar outro arquivo .py 
 # Então vamos fingir que isso aqui é outra classe
@@ -67,13 +74,19 @@ def getDeputadoPorId (id):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?id='+id+'&ordenarPor=nome').json()
     return r['dados']
 
+
 def getDeputadoPorPartido (sigla):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaPartido='+sigla).json()
     return r['dados']
 
 
+def getDeputadoPorEstado (sigla):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaUf='+sigla).json()
+    return r['dados']
+
+
 def getPartidos (nome):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?nome='+nome+'&itens=36 &ordenarPor=sigla').json()
+    r = requests.get('h ').json()
     return r['dados']
 
 
@@ -85,3 +98,9 @@ def getPartidoPorId (id):
 def getEstados ():
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/referencias/uf').json()
     return r['dados']
+
+
+
+
+
+
