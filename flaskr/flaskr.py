@@ -18,6 +18,7 @@ def index():
         
         if request.form['cargo'] == 'Deputados' :
             dados = getDeputadosPorNome(request.form['pesquisa'])
+            print (dados[0])
             return render_template('deputados.html', dados=dados)
         
         elif request.form['cargo'] == 'Partidos' :
@@ -28,7 +29,7 @@ def index():
             dados = getEstados()
             return render_template('estados.html', dados=dados)
 
-    return render_template('index.html')
+    return render_template('deputados.html')
 
 
 
@@ -43,7 +44,6 @@ def deputado(deputadoId):
 @app.route('/partido/<string:partidoId>')
 def partido(partidoId):
     dados = getPartidoPorId(partidoId)
-    print (dados['sigla'])
     membrosPartido = getDeputadoPorPartido(dados['sigla'])
     return render_template('partido.html', dados=dados, membrosPartido=membrosPartido) 
 
@@ -73,7 +73,7 @@ def getDeputadoPorPartido (sigla):
 
 
 def getPartidos (nome):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?nome='+nome+'&itens=36&ordenarPor=sigla').json()
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?nome='+nome+'&itens=36 &ordenarPor=sigla').json()
     return r['dados']
 
 
