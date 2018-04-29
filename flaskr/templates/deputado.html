@@ -6,12 +6,13 @@
   <h1>Deputado.html</h1>
   <h2>Resultado das pesquisas</h2>
 
+  {{ idPartido }} <br>
   {% for dado in dados %}
    <h4> {{ dado.nome }}</h4>
     {{ dado.uriPartido }} <br>
     {{ dado.uri }} <br>
     {{ dado.id }} <br>
-    {{ dado.siglaPartido }}<br>
+    <a href="/partido/{{ idPartido }}">{{ dado.siglaPartido }}</a> <br>
     {{ dado.siglaUf }} <br>
     {{ dado.idLegislatura }}<br>
     {{ dado.urlFoto }}<br>

@@ -11,14 +11,20 @@
     {{ dados.id }} <br>
     {{ dados.nome }}<br> 
     {{ dados.status.totalPosse }}<br>
-    <h4>Membros</h4>
-    {{ dados.status.totalMembros }}<br>
-    {{ dados.status.uriMembros }}<br>
     <h4>Lider</h4>
     {{ dados.status.lider.nome }}<br>
     {{ dados.status.lider.uf }}<br>
+    <h4>Membros</h4>
+    {{ dados.status.totalMembros }}<br>
   {% else %}
-    Pesquisa algo ai.
+    Não encontrei seu partido
   {% endif %}
-  
+
+  {% for membro in membrosPartido %}
+    <a href="/deputado/{{ membro.id }}"><h5> {{ membro.nome }} </h5>   </a> 
+
+    {{ membro.siglaUf }} <br> 
+  {% else %}
+    <i>Não existe ninguém aqui</i>
+  {% endfor %}
 {% endblock %}  
