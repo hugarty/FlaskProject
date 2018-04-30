@@ -16,7 +16,6 @@ def index():
         
         if request.form['cargo'] == 'Deputados' :
             dados = getDeputadosPorNome(request.form['pesquisa'])
-            print (dados[0])
             return render_template('deputados.html', dados=dados)
         
         elif request.form['cargo'] == 'Partidos' :
