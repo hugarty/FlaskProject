@@ -1,18 +1,31 @@
 # Flask project
 
-### Install flask
-http://flask.pocoo.org/docs/0.12/installation/#installation
+```sh
+$ cd FlaskProject
+```
 
-### Install requests
-http://docs.python-requests.org/en/master/user/install/#install
+### Setup a virtual environment 
+```sh
+$ virtualenv env
+$ source env/bin/activate
+```
+
+### Install dependencies
+```sh
+$ pip install -r requirements.txt
+```
+
+### Setup flask path
+```sh
+$ export FLASK_APP=flaskr/flaskr.py
+```
+
+### On development
+```sh
+$ export FLASK_DEBUG=true
+```
 
 ### Run
-```
-/flask/flaskr$ export FLASK_APP=flaskr.py
-```
-```
-/flask/flaskr$ export FLASK_DEBUG=true
-```
-```
+```sh
 $ flask run
 ```
