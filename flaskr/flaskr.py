@@ -86,7 +86,7 @@ def getDeputadoPorEstado (sigla):
 
 
 def getPartidos (nome):
-    r = requests.get('h ').json()
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?itens=40&ordenarPor=sigla').json()
     return r['dados']
 
 
