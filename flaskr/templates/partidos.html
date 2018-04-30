@@ -6,13 +6,17 @@
   <h1>Partidos.html</h1>
   <h2>Resultado das pesquisas</h2>
 
-  {% for dado in dados %}
-   <h4> {{ dado.sigla }} </h4>
-    <a href="/partido/{{ dado.id }}">pagina do Partido</a> <br>
-    {{ dado.id }} <br>
-    {{ dado.nome }}
-    <br>    
+  {% if dados %}
+    {% for dado in dados %}
+     <h4> {{ dado.sigla }} </h4>
+      <a href="/partido/{{ dado.id }}">pagina do Partido</a> <br>
+      {{ dado.id }} <br>
+      {{ dado.nome }}
+      <br>    
+    {% else %}
+      <li><em>Pesquisa algo ai.</em>
+    {% endfor %}
   {% else %}
-    <li><em>Pesquisa algo ai.</em>
-  {% endfor %}
+    <h4>Partido nao encontrado</h4>
+  {% endif %}
 {% endblock %}  
