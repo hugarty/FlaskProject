@@ -1,20 +1,103 @@
-<!doctype html>
-<title>Deputados mais tops do Brasil</title>
+<!DOCTYPE html>
+<html>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-  <h1>Flaskr</h1>
-  <form action="{{ url_for('index')}}", method=post>
-    <h4>Pesquisar por:</h4>
-    <select name="cargo">
-      <option value="Deputados">Deputados</option>
-      <option value="Partidos">Partidos</option>
-      <option value="Estados">Estados</option>
-    </select>
+<head>
+  <title>Deputados mais tops do Brasil</title>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <h1>PESQUISAR POR</h1>
+    </div>
+    <div id="type">
+      <ul>
+        <li>
+          <input type="radio" id="f-option" name="selector" value="deputados">
+          <label for="f-option">Deputados</label>
+          <div class="check"></div>
+        </li>
+        <li>
+          <input type="radio" id="s-option" name="selector" value="partidos">
+          <label for="s-option">Partidos</label>
+          <div class="check"><div class="inside"></div></div>
+        </li>
+      </ul>
+    </div>
+    <div id="name" style="display: none">
+      <input type="" name="name">
+      <label for="s-option">DIGITE</label>
+      <button id="search">pesquisar</button>
+      <button id="back-to-type">voltar</button>
+    </div>
+  </div>
+  <!-- <div class="page">
+    <h1>Flaskr </h1>
+    <form action="{{ url_for('index')}}", method='GET'>
+      <h4>Pesquisar por:</h4>
+      <select name="query">
+        <option value="deputado">Deputados</option>
+        <option value="partido">Partidos</option>
+        <option value="estado">Estados</option>
+      </select>
 
-    <h5>Pesquisar nome</h5>
-    <!-- Aparece o campo de pesquisa se  -->
-    <input type="text" placeholder="Nome do Deputado/Partido, Sigla do estado" name="pesquisa">
-    <input type="submit" value="Pesquisar">
-  </form>
-  {% block body %}{% endblock %}
-</div>
+      <h5>Pesquisar nome</h5>
+      <!-- Aparece o campo de pesquisa se  -->
+      <!-- <input type="text" placeholder="Nome do Deputado/Partido, Sigla do estado" name="pesquisa">
+      <input type="submit" value="Pesquisar">
+      <div class="loader loader--style8" style="display: none;" id="loader-gif">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite"></animate>
+            </rect>
+            <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate>
+            </rect>
+            <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate>
+            </rect>
+        </svg>
+      </div>
+    </form> -->
+  <!-- </div> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $('input[type="radio"]').on('change', function(){
+      if(!this.value){
+        console.log('oia')
+      } else {
+        $('#type').hide()
+        $('#name').show()
+      }
+    })
+    $('#back-to-type').on('click', function(){
+      $('#type').show()
+      $('#name').hide()
+    })
+    $('#search').on('click', function(){
+      var route = $('input[type="radio"]:checked').val()
+
+      var name = $('input[name="name"]').val()
+      $.ajax({
+        method: "GET",
+        url: '/',
+        data: {[route]: name},
+        beforeSend: function(){
+          $("#loader-gif").show()
+        },
+        success: function(res){
+          console.log(res)
+        },
+        complete: function(){
+          $("#loader-gif").hide()
+        }
+      })
+    })
+  </script>
+</body>
+</html>

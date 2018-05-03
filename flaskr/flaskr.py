@@ -3,37 +3,33 @@
 
 import requests
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
+     render_template, flash, jsonify
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , flaskr.py
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        print(request.form['cargo'])
-        print(request.form['pesquisa'])
-        
-        if request.form['cargo'] == 'Deputados' :
-            dados = getDeputadosPorNome(request.form['pesquisa'])
-            return render_template('deputados.html', dados=dados)
-        
-        elif request.form['cargo'] == 'Partidos' :
-            dados = getPartidos(request.form['pesquisa'])
-            return render_template('partidos.html', dados=dados)
+    if request.method == 'GET' and request.args:
+        if 'deputados' in request.args :
+            dados = getDeputadosPorNome(request.args['deputados'])
+            return jsonify(dados)
+        if 'partidos' in request.args:
+            dados = getPartidos(request.args['partidos'])
+            return jsonify(dados)
+    return render_template('header.html')
 
-        elif request.form['cargo'] == 'Estados' :
-            dados = getEstados()
-            return render_template('estados.html', dados=dados)
-
-    return render_template('deputados.html')
-
-
+@app.route('/deputados/<string:deputadoId>')
+def deputados(deputadoId):
+    print('oi')
+    return ('oi')
 
 @app.route('/deputado/<string:deputadoId>')
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     idPartido = dados[0]['uriPartido'][51:]
+    print (dados[0])
+    print (idPartido)
     return render_template('deputado.html', dado=dados[0], idPartido=idPartido)
 
 
@@ -51,6 +47,10 @@ def estado(siglaEstado):
     dados = getDeputadoPorEstado(siglaEstado)
     return render_template('estado.html', membrosPartido=dados) 
 
+@app.route('/mostrar/<string:size>')
+def mostrarMais (size = '10'):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?itens='+size+'&ordenarPor=nome').json()
+    return str(r['dados'])
 
 #Caso queri pegar o nome do estado a siglado você pode 
 #criar um rest full privado no firebase e dar get nele
@@ -62,10 +62,9 @@ def estado(siglaEstado):
 # ------------------------------------------------------------------------------------
 
 
-def getDeputadosPorNome (nome):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?nome='+nome+'&itens=30&ordenarPor=nome').json()
+def getDeputadosPorNome (nome, size = '3'):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?nome='+nome+'&itens='+size+'&ordenarPor=nome').json()
     return r['dados']
-
 
 def getDeputadoPorId (id):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?id='+id+'&ordenarPor=nome').json()
@@ -95,9 +94,3 @@ def getPartidoPorId (id):
 def getEstados ():
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/referencias/uf').json()
     return r['dados']
-
-
-
-
-
-

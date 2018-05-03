@@ -13,6 +13,7 @@
       {{ dado.uri }} <br>
       {{ dado.id }} <br>
       <a href="/deputado/{{ dado.id }}">pagina do deputado</a> <br>
+      {{ dado.id }}
       {{ dado.siglaPartido }}<br>
       <a href="/estado/{{ dado.siglaUf }}"> {{ dado.siglaUf }}<br> </a>
       {{ dado.idLegislatura }}<br>
@@ -20,7 +21,32 @@
     {% else %}
       <li><em>Pesquisa algo ai.</em>
     {% endfor %}
+    <button onclick="oi()">Mostrar mais</button>
   {% else %}
     <h4>Deputado nao encontrado</h4>
   {% endif %}
-{% endblock %}      
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+  console.log($('input[name=data]').val())
+  let size = 1
+  let data = null
+  function oi(){
+    $.ajax({
+      method: "GET",
+      url: `mostrar/${size}`,
+      // data: { name: "John", location: "Boston" }
+      beforeSend: function(){
+        $("#loader-gif").show()
+      },
+      success: function(res){
+        size++
+        data = res
+      },
+      complete: function(){
+        $("#loader-gif").hide()
+      }
+    })
+  }
+</script>
+{% endblock %}  
