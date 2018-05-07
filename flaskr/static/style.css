@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
 body, html{
-  height: 100%;
-  background: #222222;
+  min-height: 100vh;
+  background: #212121;
   font-family: 'Lato', sans-serif;
   margin: 0;
 }
@@ -101,57 +99,6 @@ input[type=radio]:checked ~ label{
   color: #0DFF92;
 }
 
-.signature {
-  margin: 10px auto;
-  padding: 10px 0;
-  width: 100%;
-}
-
-.signature p{
-  text-align: center;
-  font-family: Helvetica, Arial, Sans-Serif;
-  font-size: 0.85em;
-  color: #AAAAAA;
-}
-
-.signature .much-heart{
-  display: inline-block;
-  position: relative;
-  margin: 0 4px;
-  height: 10px;
-  width: 10px;
-  background: #AC1D3F;
-  border-radius: 4px;
-  -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.signature .much-heart::before, 
-.signature .much-heart::after {
-    display: block;
-  content: '';
-  position: absolute;
-  margin: auto;
-  height: 10px;
-  width: 10px;
-  border-radius: 5px;
-  background: #AC1D3F;
-  top: -4px;
-}
-
-.signature .much-heart::after {
-  bottom: 0;
-  top: auto;
-  left: -4px;
-}
-
-.signature a {
-  color: #AAAAAA;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 .alert {
   box-sizing: border-box;
   background-color: #0DFF92;
@@ -178,4 +125,34 @@ input[type=radio]:checked ~ label{
 .alert a {
   color: #232323;
   font-weight: bold;
+}
+body{
+  background: #2e2e30;
+}
+*{
+  box-sizing: border-box;
+}
+
+#results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.avatar-container{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  transform: translate(-75px, -75px);
+}
+.avatar{
+  overflow: hidden;
+  border-radius: 50%;
+  border: solid 3px #E91E63;
+  width: 120px;
+  height: 120px;
+  background-size: cover; 
+  z-index: 2;
+  cursor: pointer;
 }
