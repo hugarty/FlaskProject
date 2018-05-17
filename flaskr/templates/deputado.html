@@ -1,21 +1,12 @@
 {% extends "header.html" %}
 {% block body %}
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-  <span>---------------------------------------------</span>
-  
-  <h1>Deputado.html</h1>
-  <h2>Resultado das pesquisas</h2>
-
-  {{ idPartido }} <br>
   {% if dado %}
    <h4> {{ dado.nome }}</h4>
-    {{ dado.uriPartido }} <br>
-    {{ dado.uri }} <br>
-    {{ dado.id }} <br>
+    <div class="avatar"><img src="{{ dado.urlFoto }}"></div>        
     <a href="/partido/{{ idPartido }}">{{ dado.siglaPartido }}</a> <br>
     <a href="/estado/{{ dado.siglaUf }}"> {{ dado.siglaUf }}<br> </a>
     {{ dado.idLegislatura }}<br>
-    {{ dado.urlFoto }}<br>
     <a href="#">Proposições do Deputado</a>
   {% else %}
     <h4>Deputado não encontrado</h4>

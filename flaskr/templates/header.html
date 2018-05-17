@@ -1,78 +1,20 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<title>Deputados mais tops do Brasil</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<head>
-  <title>Deputados mais tops do Brasil</title>
-</head>
-<body>
+<div class=page>
   <div class="container">
-    <div>
       <h1>PESQUISAR POR</h1>
-    </div>
-    {% include "loader.html" %}
-    <div id="type">
-      <ul>
-        <li>
-          <input type="radio" id="f-option" name="selector" value="deputados">
-          <label for="f-option">Deputados</label>
-          <div class="check"></div>
-        </li>
-        <li>
-          <input type="radio" id="s-option" name="selector" value="partidos">
-          <label for="s-option">Partidos</label>
-          <div class="check"><div class="inside"></div></div>
-        </li>
-      </ul>
-    </div>
-    <div id="name" style="display: none">
-      <input type="" name="name">
-      <label for="s-option">DIGITE</label>
-      <button id="search">pesquisar</button>
-      <button id="back-to-type">voltar</button>
-    </div>
-    <div id="results"></div>
-  </div>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    $('input[type="radio"]').on('change', function(){
-      if(!this.value){
-        console.log('oia')
-      } else {
-        $('#type').hide()
-        $('#name').show()
-      }
-    })
-    $('#back-to-type').on('click', function(){
-      $('#type').show()
-      $('#name').hide()
-    })
-    $('#search').on('click', function(){
-      var route = $('input[type="radio"]:checked').val()
 
-      var name = $('input[name="name"]').val()
-      $.ajax({
-        method: "GET",
-        url: '/',
-        data: {[route]: name},
-        beforeSend: function(){
-          $("#loader-gif").show()
-        },
-        success: function(res){
-          res.map((e, k) => {
-            return (
-              $(
-                `
-                <div class="avatar"><img src="${e.urlFoto}"></div>        
-                <div class="name">${e.nome}</div>`
-              ).appendTo('#results')
-            )
-          })
-        },
-        complete: function(){
-          $("#loader-gif").hide()
-        }
-      })
-    })
-  </script>
-</body>
-</html>
+    <form action="{{ url_for('index')}}", method=post>
+      <select name="cargo">
+        <option value="Deputados">Deputados</option>
+        <option value="Partidos">Partidos</option>
+      </select>
+
+      <!-- Aparece o campo de pesquisa se  -->
+      <input type="text" placeholder="Nome do Deputado ou Sigla do partido" name="pesquisa">
+      <input type="submit" value="Pesquisar">
+    </form>
+    {% block body %}{% endblock %}
+  </div>  
+</div>

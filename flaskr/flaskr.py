@@ -2,34 +2,35 @@
 # -*- coding: iso-8859-1 -*-
 
 import requests
-from flask import Flask, request, session, g, redirect, url_for, abort, \
+from flask import Flask, request, g, redirect, url_for, abort, \
      render_template, flash, jsonify
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , flaskr.py
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'GET' and request.args:
         if 'deputados' in request.args :
             dados = getDeputadosPorNome(request.args['deputados'])
             return jsonify(dados)
         if 'partidos' in request.args:
-            dados = getPartidos(request.args['partidos'])
+            dados = getPartidosPorSigla(request.args['partidos'])
             return jsonify(dados)
-    return render_template('header.html')
+    
+    if request.method == 'POST' :
+        if request.form['cargo'] == 'Deputados':
+            dados = getDeputadosPorNome(request.form['pesquisa'])
+            return render_template('principal.html', dados=dados)
+        dados = getPartidosPorSigla(request.form['pesquisa'])
+        return render_template('principal.html', dados=dados)
+    return render_template('principal.html')
 
-@app.route('/deputados/<string:deputadoId>')
-def deputados(deputadoId):
-    print('oi')
-    return ('oi')
 
 @app.route('/deputado/<string:deputadoId>')
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     idPartido = dados[0]['uriPartido'][51:]
-    print (dados[0])
-    print (idPartido)
     return render_template('deputado.html', dado=dados[0], idPartido=idPartido)
 
 
@@ -51,6 +52,7 @@ def estado(siglaEstado):
 def mostrarMais (size = '10'):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?itens='+size+'&ordenarPor=nome').json()
     return str(r['dados'])
+   
 
 #Caso queri pegar o nome do estado a siglado você pode 
 #criar um rest full privado no firebase e dar get nele
@@ -81,7 +83,7 @@ def getDeputadoPorEstado (sigla):
     return r['dados']
 
 
-def getPartidos (sigla):
+def getPartidosPorSigla (sigla):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?sigla='+sigla+'&itens=40&ordenarPor=sigla').json()
     return r['dados']
 
