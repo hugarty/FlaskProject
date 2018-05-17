@@ -11,6 +11,12 @@
     </div>
     {% if dados %}
       <div id="name" >
+        <div class="select-style">
+          <select name="cargo">
+            <option value="Deputados">Deputados</option>
+            <option value="Partidos">Partidos</option>
+          </select>
+        </div>
         <label for="s-option">DIGITE</label>
         <input value="{{ request['pesquisa'] }}" type="" name="name">
         <button id="search">pesquisar</button>
@@ -61,6 +67,12 @@
       </div>
       
       <div id="name" style="display: none">
+        <div class="select-style">
+          <select name="cargo">
+            <option value="Deputados">Deputados</option>
+            <option value="Partidos">Partidos</option>
+          </select>
+        </div>
         <input type="" name="name">
         <label for="s-option">DIGITE</label>
         <button id="search">pesquisar</button>

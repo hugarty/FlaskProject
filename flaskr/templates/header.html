@@ -6,11 +6,12 @@
       <h1>PESQUISAR POR</h1>
 
     <form action="{{ url_for('index')}}", method=post>
-      <select name="cargo">
-        <option value="Deputados">Deputados</option>
-        <option value="Partidos">Partidos</option>
-      </select>
-
+      <div class="select-style">
+        <select name="cargo">
+          <option value="Deputados">Deputados</option>
+          <option value="Partidos">Partidos</option>
+        </select>
+      </div>
       <!-- Aparece o campo de pesquisa se  -->
       <input type="text" placeholder="Nome do Deputado ou Sigla do partido" name="pesquisa">
       <input type="submit" value="Pesquisar">
