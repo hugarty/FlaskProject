@@ -20,10 +20,9 @@
         <label for="s-option">DIGITE</label>
         <input value="{{ request['pesquisa'] }}" type="" name="name">
         <button id="search">pesquisar</button>
-        <button id="back-to-type">voltar</button>
-     </div>
+      </div>
 
-     <div id="type" style="display: none">
+      <div id="type" style="display: none">
         <ul>
             {% if dados[0].siglaPartido %}
             <li>  
@@ -76,7 +75,6 @@
         <input type="" name="name">
         <label for="s-option">DIGITE</label>
         <button id="search">pesquisar</button>
-        <button id="back-to-type">voltar</button>
       </div>
     {% endif %}
     
@@ -99,9 +97,9 @@
     </div>
     {% include "loader.html" %}
   </div>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
     function deleteResultsChilds ()
     {
@@ -112,17 +110,38 @@
         }
     }
 
+    //trata as alterações feitas no Radio e passa para o select
     $('input[type="radio"]').on('change', function(){
       if(!this.value){
       } else {
+        if($('input[type="radio"]:checked').val() == "deputados")
+        {
+          $('select[name="cargo"]').val('Deputados');
+        }
+        else{
+          $('select[name="cargo"]').val('Partidos');
+        }
         $('#type').hide()
         $('#name').show()
       }
     })
-    
-    $('#back-to-type').on('click', function(){
-      $('#type').show()
-      $('#name').hide()
+
+    //trata as alterações feitas no select e passa para o radio
+    $('select[name="cargo"]').on('change', function(){
+      if(!this.value){
+      } else {
+        if($('select[name="cargo"]').val() == "Deputados")
+        {
+          $('#s-option').prop('checked', false);
+          $('#f-option').prop('checked', true);
+        }
+        else{
+          $('#f-option').prop('checked', false);
+          $('#s-option').prop('checked', true);
+        }
+        $('#type').hide()
+        $('#name').show()
+      }
     })
     
     $('#search').on('click', function(){
