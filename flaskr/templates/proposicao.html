@@ -1,0 +1,23 @@
+{% extends "header.html" %}
+{% block body %}
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <span>---------------------------------------------</span>
+  
+  <h1>proposicao.html</h1>
+
+  {% if dados %}
+    <h4> {{ dados.descricaoTipo }}</h4>
+    Data Apresentacao: {{dados.dataApresentacao}} <br>
+    Ementa: {{dados.ementa }} <br>
+    Ano: {{dados.ano }} <br>
+    <a href="{{dados.urlInteiroTeor }}">
+      Inteiro teor: {{dados.urlInteiroTeor }} <br>
+    </a>
+    Situação: {{dados.descricaoSitacao }} <br>
+  
+  {% else %}
+    <li><em>Pesquisa algo ai.</em>
+  {% endif %}
+
+
+{% endblock %}  

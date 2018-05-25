@@ -3,20 +3,22 @@
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <span>---------------------------------------------</span>
   
-  <h1>Partidos.html</h1>
+  <h1>Proposições do Parlamentar.html</h1>
   <h2>Resultado das pesquisas</h2>
 
   {% if dados %}
     {% for dado in dados %}
      <h4> {{ dado.sigla }} </h4>
-      <a href="/partido/{{ dado.id }}">pagina do Partido</a> <br>
-      {{ dado.id }} <br>
-      {{ dado.nome }}
-      <br>    
+     Ementa: {{ dado.ementa }} <br> 
+     ano  : {{ dado.ano }}  <br>
+     numero: {{ dado.numero }}  <br>
+     Tipo(sigla) : {{dado.siglaTipo}}
+     <a href="/proposicao/{{ dado.id }}">Mais detalhes sobre a proposicao</a> <br>    
+     ----------------------------------<br>
     {% else %}
       <li><em>Pesquisa algo ai.</em>
     {% endfor %}
   {% else %}
-    <h4>Partido nao encontrado</h4>
+    <h4>Autor não tem proposições ou não existe autor</h4>
   {% endif %}
 {% endblock %}  

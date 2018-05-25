@@ -26,7 +26,6 @@ def index():
     if request.method == 'POST' :
         if request.form['cargo'] == 'Deputados':
             dados = getDeputadosPorNome(request.form['pesquisa'])
-            print(dados)
             return render_template('principal.html', dados=dados)
         dados = getPartidosPorSigla(request.form['pesquisa'])
         return render_template('principal.html', dados=dados)
@@ -38,10 +37,8 @@ def index():
 @app.route('/deputado/<string:deputadoId>')
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
-    if(temElementoEm(dados)):
-        idPartido = dados[0]['uriPartido'][51:]
-        return render_template('deputado.html', dado=dados[0], idPartido=idPartido)
-    return redirect(url_for('naoEncontrado'))
+    return render_template('deputado.html', dado=dados)
+    # return redirect(url_for('naoEncontrado'))
 
 
 
@@ -60,10 +57,19 @@ def estado(siglaEstado):
 
 
 
-@app.route('/mostrar/<string:size>')
-def mostrarMais (size = '10'):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?itens='+size+'&ordenarPor=nome')
-    return str(r['dados'])
+@app.route('/proposicoesAutor/<string:idAutor>')
+def proposicoesAutor (idAutor):
+    dados = getProposicaoAutor(idAutor)
+    print(dados)
+    return render_template('proposicaoAutor.html', dados=dados) 
+
+
+
+@app.route('/proposicao/<string:idProposicao>')
+def proposicao (idProposicao):
+    dados = getProposicaoPorId(idProposicao)
+    print(dados)
+    return render_template('proposicao.html', dados=dados) 
 
 
 
@@ -101,8 +107,8 @@ def getDeputadosPorNome (nome, size = '30'):
 
 
 def getDeputadoPorId (id):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?id='+id+'&idLegislatura=55&idLegislatura=54&idLegislatura=53&idLegislatura=52&idLegislatura=51&idLegislatura=50&ordem=ASC&ordenarPor=nome')
-    return r.json()['dados']
+    dados = infoDeputado(id)
+    return dados
 
 
 def getDeputadoPorPartido (sigla):
@@ -125,25 +131,50 @@ def getPartidoPorId (id):
     return r.json()['dados']
 
 
+def getProposicaoAutor(id):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/proposicoes?idAutor='+id+'&ordem=ASC&ordenarPor=id')
+    return r.json()['dados']
+
+
+def getProposicaoPorId(id):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/proposicoes/'+id)
+    return r.json()['dados']
+
+
 def getEstados ():
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/referencias/uf')
     return r.json()['dados']
 
 
-def temElementoEm (lista):
-    if len(lista) > 0 :
-        return True
+
+
+def infoDeputado(id):
+    dados = dict()
+    partidos  = []
+    
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?id='+id+'&idLegislatura=56&idLegislatura=55&idLegislatura=54&idLegislatura=53&idLegislatura=52&idLegislatura=51&idLegislatura=50&ordem=ASC&ordenarPor=idLegislatura')
+    r2 = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados/'+id)
+
+    if r2.status_code == 200:
+        for i in r.json()['dados']:
+            partidos.append(i['siglaPartido'])
+        dados['qtLegislatura'] = len(r.json()['dados'])
+        dados['anosLegislando'] = dados['qtLegislatura'] * 4
+        dados['partidos'] = partidos
+        dados['geral'] = r2.json()['dados']
+        dados['idPartido'] = r2.json()['dados']['ultimoStatus']['uriPartido'][51:]
+    return dados
+
+
 
 def paginacao (r):
     dictPagina = dict()
-    print('relações dessa página')
     for i in r.json()['links']:
         dictPagina[i['rel']] = i['href']
-        print(i['rel'])
 
     dados = r.json()['dados']
     
-    if temElementoEm(dados):
+    if len(dados) > 0:
         if 'next' in dictPagina:
             dados[0]['linkNextPage'] = dictPagina['next']
 
