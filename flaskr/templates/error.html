@@ -1,0 +1,10 @@
+{% extends "header.html" %}
+{% block body %}
+  <h1>Houve um erro...</h1>
+  {% if dado %}
+   <h2>Não encontramos este elemento :/</h2>
+  {% else %}
+    <h2>Página não encontrada ''-_-</h2>
+  {% endif %}
+  <h2>Tente de novo!</h2>
+{% endblock %}  
