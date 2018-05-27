@@ -55,20 +55,34 @@ $('#search').on('click', function () {
         if (e.urlFoto != null && e.urlfoto != '') {
           return (
             $(`
-              <a href="/deputado/${e.id}">
-              <div class="avatar"><img src="${e.urlFoto}"></div>        
-              <div class="name">${e.nome}</div>
-              </a>
+              <div class="resultado pesquisa">
+                <a href="/deputado/${e.id}">
+                <div class="avatar"><img src="${e.urlFoto}"></div>        
+                <div class="name">${e.nome}</div>
+                </a>
+              </div>
               `).appendTo('#results')
           )
         } else {
-          return (
-            $(`
-              <a href="/deputado/${e.id}">        
-              <div class="name">${e.nome}</div>
-              </a>
+          if (e.semDados == 'semDados'){
+            return (
+              $(`
+              <div class="resultado pesquisa">
+              <h4>Pesquise pela sigla inteira do partido</h4>
+              </div>
               `).appendTo('#results')
-          )
+            )
+          }else{
+            return (
+              $(`
+              <div class="resultado pesquisa">
+              <a href="/partido/${e.id}">        
+              <div class="name">${e.sigla}</div>
+              </a>
+              </div>
+              `).appendTo('#results')
+            )
+          }
         }
       })
     },

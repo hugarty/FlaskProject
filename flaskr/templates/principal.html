@@ -9,6 +9,8 @@
     <div>
       <h1>PESQUISAR POR</h1>
     </div>
+
+    
     {% if dados %}
       <div id="name" >
         <div class="select-style">
@@ -84,16 +86,20 @@
     
     <div id="results">  
       {% for dado in dados %}
-       <div>
+       <div class="resultado pesquisa">
          {% if dado.siglaPartido%}
           <a href="/deputado/{{dado.id}}">
             <div class="avatar"><img src="{{dado.urlFoto}}"></div>        
             <div class="name">{{dado.nome}}</div>
           </a>
         {% else %}
-          <a href="/partido/{{dado.id}}">        
-            <div class="name">{{dado.sigla}}</div>
-          </a>
+          {% if dado.semDados %}
+          <h4>Pesquise pela sigla inteira do partido</h4>
+          {% else %}
+            <a href="/partido/{{dado.id}}">        
+              <div class="name">{{dado.sigla}}</div>
+            </a>
+          {% endif %}  
         {% endif %}
       </div>
       {% endfor %}

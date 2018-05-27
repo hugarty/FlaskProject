@@ -188,3 +188,8 @@ body{
 select{
   color: rgb(255, 255, 255);
 }
+
+.resultado pesquisa{
+  margin: 10px;
+  padding: 5px;
+}

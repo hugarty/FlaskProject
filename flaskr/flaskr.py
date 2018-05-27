@@ -21,6 +21,7 @@ def index():
             return jsonify(dados)
         if 'partidos' in request.args:
             dados = getPartidosPorSigla(request.args['partidos'])
+            print(dados)
             return jsonify(dados)
     
     if request.method == 'POST' :
@@ -28,6 +29,7 @@ def index():
             dados = getDeputadosPorNome(request.form['pesquisa'])
             return render_template('principal.html', dados=dados)
         dados = getPartidosPorSigla(request.form['pesquisa'])
+        print(dados)
         return render_template('principal.html', dados=dados)
 
     return render_template('principal.html')
@@ -60,7 +62,6 @@ def estado(siglaEstado):
 @app.route('/proposicoesAutor/<string:idAutor>')
 def proposicoesAutor (idAutor):
     dados = getProposicaoAutor(idAutor)
-    print(dados)
     return render_template('proposicaoAutor.html', dados=dados) 
 
 
@@ -68,7 +69,6 @@ def proposicoesAutor (idAutor):
 @app.route('/proposicao/<string:idProposicao>')
 def proposicao (idProposicao):
     dados = getProposicaoPorId(idProposicao)
-    print(dados)
     return render_template('proposicao.html', dados=dados) 
 
 
@@ -123,7 +123,9 @@ def getDeputadoPorEstado (sigla):
 
 def getPartidosPorSigla (sigla):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?sigla='+sigla+'&itens=40&ordenarPor=sigla')
-    return r.json()['dados']
+    if len(r.json()['dados']) > 0:
+        return r.json()['dados']
+    return [{'semDados': 'semDados'}]
 
 
 def getPartidoPorId (id):
