@@ -29,7 +29,6 @@ def index():
             dados = getDeputadosPorNome(request.form['pesquisa'])
             return render_template('principal.html', dados=dados)
         dados = getPartidosPorSigla(request.form['pesquisa'])
-        print(dados)
         return render_template('principal.html', dados=dados)
 
     return render_template('principal.html')
@@ -40,7 +39,6 @@ def index():
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     return render_template('deputado.html', dado=dados)
-    # return redirect(url_for('naoEncontrado'))
 
 
 
@@ -73,19 +71,13 @@ def proposicao (idProposicao):
 
 
 
-@app.route('/naoEncontrado')
-def naoEncontrado():
-    return render_template('error.html', dado='SemDeputado')
-
-
-
 @app.errorhandler(404)
 def notFound(error):
     return render_template('error.html'), 404
 
 
 #Caso queira pegar o nome do estado a siglado você pode 
-#criar um rest full privado no firebase e dar get nele
+#criar um rest   full privado no firebase e dar get nele
 
 
 # Não sei importar outro arquivo .py 
@@ -93,7 +85,7 @@ def notFound(error):
 
 # ------------------------------------------------------------------------------------
 
-
+# Paginador
 def getPagina (pagina):
     r = requests.get(pagina)
     dados = paginacao(r)
@@ -111,21 +103,19 @@ def getDeputadoPorId (id):
     return dados
 
 
+def getDeputadoPorEstado (sigla, size = '30'):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaUf='+sigla+'&itens='+size)
+    return r.json()['dados']
+
+
 def getDeputadoPorPartido (sigla):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaPartido='+sigla)
     return r.json()['dados']
 
 
-def getDeputadoPorEstado (sigla):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaUf='+sigla)
-    return r.json()['dados']
-
-
 def getPartidosPorSigla (sigla):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?sigla='+sigla+'&itens=40&ordenarPor=sigla')
-    if len(r.json()['dados']) > 0:
-        return r.json()['dados']
-    return [{'semDados': 'semDados'}]
+    return checkSiglaPartido(r)
 
 
 def getPartidoPorId (id):
@@ -148,6 +138,13 @@ def getEstados ():
     return r.json()['dados']
 
 
+# ------
+
+
+def checkSiglaPartido (r):
+    if len(r.json()['dados']) > 0:
+        return r.json()['dados']
+    return [{'semDados': 'semDados'}]
 
 
 def infoDeputado(id):

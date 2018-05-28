@@ -1,22 +1,29 @@
 <!doctype html>
-<title>Deputados mais tops do Brasil</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-  <div class="container">
+<html>
+  <head>
+    <title>Deputados mais tops do Brasil</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <div class=page>
+    <div class="container">
       <h1>PESQUISAR POR</h1>
-
-    <form action="{{ url_for('index')}}", method=post>
-      <div class="select-style">
-        <select name="cargo">
-          <option value="Deputados">Deputados</option>
-          <option value="Partidos">Partidos</option>
-        </select>
-      </div>
-      <!-- Aparece o campo de pesquisa se  -->
-      <input type="text" placeholder="Nome do Deputado ou Sigla do partido" name="pesquisa">
-      <input type="submit" value="Pesquisar">
-    </form>
-    {% block body %}
-    {% endblock %}
-  </div>  
-</div>
+  
+      <form action="{{ url_for('index')}}", method=post>
+        <div class="select-style">
+          <select name="cargo">
+            <option value="Deputados">Deputados</option>
+            <option value="Partidos">Partidos</option>
+          </select>
+        </div>
+        <!-- Aparece o campo de pesquisa se  -->
+        <input type="text" placeholder="Nome do Deputado ou Sigla do partido" name="pesquisa">
+        <input type="submit" value="Pesquisar">
+      </form>
+      <body>
+        {% block body %}
+        {% endblock %}
+      </body>
+    </div>
+  </div>
+  {% include "footer.html" %}
+</html>

@@ -7,8 +7,13 @@
   <h2>Resultado das pesquisas</h2>
 
   {% for membro in membrosPartido %}
-    <a href="/deputado/{{ membro.id }}"><h5> {{ membro.nome }} </h5></a> 
-    {{ membro.siglaPartido }} <br>
+    <div>
+      <a href="/deputado/{{ membro.id }}">
+        <img src="{{ membro.urlFoto}}" alt="">
+        <h5> {{ membro.nome }} </h5>
+      </a> 
+      <a href="/partido/{{ membro.id }}"><h5> {{ membro.siglaPartido }} </h5></a> 
+    </div>
   {% else %}
     <i>Não existe ninguém aqui</i>
   {% endfor %}
