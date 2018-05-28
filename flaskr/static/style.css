@@ -207,6 +207,7 @@ select{
 .resultado.pesquisa{
   margin: 10px;
   padding: 5px;
+<<<<<<< HEAD
   width: 200px;
   height: 200px;
   display: flex;
@@ -283,4 +284,9 @@ button#search {
 }
 .dep .contato {
   align-items: center;
+}
+
+footer{
+  background-color: #FFFFFF;
+  color: #2e2e30;
 }
