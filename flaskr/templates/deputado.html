@@ -3,29 +3,57 @@
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   
   {% if dado %}
-    <h4> {{ dado.geral.ultimoStatus.nomeEleitoral }}</h4>
-    <div class="avatar"><img src=" {{ dado.geral.ultimoStatus.urlFoto }}"></div>        
-    <a href="/partido/{{ dado.idPartido }}">{{ dado.geral.ultimoStatus.siglaPartido }}</a> <br>
-    <a href="/estado/{{ dado.geral.ultimoStatus.siglaUf }}"> {{ dado.geral.ultimoStatus.siglaUf }}<br> </a>
-    <h5>Quantidade de legislaturas</h5>
-    {{ dado.qtLegislatura }} <br>
-    Anos legislados ao final do ultimo: {{ dado.anosLegislando}}
-    <h5>Legislou pelo(s) Partido(s): </h5>
-    {% for x in dado.partidos %}
-      {{x}}
-    {% endfor %}
+    <div class="dep">
+        <div class="info-geral">
+            <h2> {{ dado.geral.ultimoStatus.nomeEleitoral }}</h2>
+            <div class="avatar">
+                <img src=" {{ dado.geral.ultimoStatus.urlFoto }}">
+            </div>
+            <div class="partidos">
+                <a href="/partido/{{ dado.idPartido }}">{{ dado.geral.ultimoStatus.siglaPartido }}</a> <br>
+                <a href="/estado/{{ dado.geral.ultimoStatus.siglaUf }}"> {{ dado.geral.ultimoStatus.siglaUf }}<br> </a>
+            </div>
+            <div class="diversos">
+                <div>
+                    <img src="../static/calendar.svg" alt="Data de nascimento">
+                    <span>{{dado.geral.dataNascimento}}</span>
+                </div>
+                <div>
+                    <img src="../static/flag.svg" alt="Naturalidade">
+                    <span> {{ dado.geral.ufNascimento }} </span>
+                </div>
+                <div>
+                    <img src="../static/school.svg" alt="Escolaridade">
+                    <span>{{dado.geral.escolaridade}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="info-leg">
+            <h5>Quantidade de legislaturas</h5>
+            {{ dado.qtLegislatura }} <br>
+            Anos legislados ao final do ultimo: {{ dado.anosLegislando}}
+            <h5>Legislou pelo(s) Partido(s): </h5>
+            {% for x in dado.partidos %}
+              {{x}}
+            {% endfor %}
 
-    <h4>Proposições</h4>
-    <a href="/proposicoesAutor/{{ dado.geral.id }}">Proposições do Deputado</a>
-    <h4>Gabinete</h4>
-    Telefone:{{dado.geral.ultimoStatus.gabinete.telefone}} <br>
-    email:{{dado.geral.ultimoStatus.gabinete.email}} <br>
-    sala k kj k:{{dado.geral.ultimoStatus.gabinete.sala}} <br>
-    predio k k j:{{dado.geral.ultimoStatus.gabinete.predio}} <br>
-    <h4>Diversos</h4>
-    data de nacimento: {{dado.geral.dataNascimento}} <br>
-    Uf de nacimento: {{ dado.geral.ufNascimento }} <br>
-    Escolaridade :  {{dado.geral.escolaridade}}
+            <h4>Proposições</h4>
+            <a href="/proposicoesAutor/{{ dado.geral.id }}">Proposições do Deputado</a>
+        </div>
+        <div class="contato">
+            <h2>CONTATE-O</h2>
+            <div>
+                <img src="../static/phone.svg">
+                <span>{{dado.geral.ultimoStatus.gabinete.telefone}}</span>
+            </div>
+            <div>
+                <img src="../static/mail.svg">
+                <span>{{dado.geral.ultimoStatus.gabinete.email}}</span>
+            </div>
+            sala k kj k:{{dado.geral.ultimoStatus.gabinete.sala}} <br>
+            predio k k j:{{dado.geral.ultimoStatus.gabinete.predio}} <br>
+        </div>
+    </div>        
 
   {% else %}
     <h4>Deputado não encontrado</h4>

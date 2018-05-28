@@ -7,6 +7,7 @@ body, html{
 
 a {
   text-decoration: none;
+  color: white;
 }
 
 .container{
@@ -16,6 +17,8 @@ a {
   align-items: center;
   height: 100%;
 }
+
+hr { border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(238, 17, 102, 0.75), rgba(0, 0, 0, 0)); }
 
 h1 {
   color: #AAAAAA;
@@ -160,11 +163,16 @@ body{
   z-index: 2;
   cursor: pointer;
   align-self: center;
+  box-shadow: 21px 21px 23px -22px rgba(0,0,0,0.75);
 }
 
 span.name{
   padding-top: 10px;
   color: #212121;
+  transition: all .5s ease;
+}
+span.name:hover{
+  color: #E91E63;
 }
 
 
@@ -219,4 +227,60 @@ button#search {
   color: white;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.dep {
+  width: 100%;
+  padding: 0px 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dep > div {
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+}
+
+.dep .info-geral {
+  justify-content: center;
+  align-items: center;
+}
+.dep .info-leg {
+}
+
+.dep .info-geral h2 {
+  color: #E91E63;
+}
+.dep .info-geral .partidos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.dep .info-geral .partidos a {
+  margin: 0 10px;
+  font-size: 20px;
+  font-weight: 100;
+}
+.dep .info-geral .diversos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.dep .info-geral .diversos div{
+  display: flex;
+  display: flex;
+  align-items: flex-end;
+  font-size: 11px;
+  color: #fff;
+}
+.dep .info-geral .diversos div span{
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+.dep .contato {
+  align-items: center;
 }
