@@ -12,7 +12,7 @@
 
     
     {% if dados %}
-      <div id="name" >
+<!--       <div id="name" >
         <div class="select-style">
           <select name="cargo">
             <option value="Deputados">Deputados</option>
@@ -20,9 +20,9 @@
           </select>
         </div>
         <label for="s-option">DIGITE</label>
-        <input value="{{ request['pesquisa'] }}" type="" name="name">
+        <input value="{{ request['pesquisa'] }}" type="" name="name" placeholder="Digite">
         <button id="search">pesquisar</button>
-      </div>
+      </div> -->
 
       <div id="type" style="display: none">
         <ul>
@@ -74,8 +74,7 @@
             <option value="Partidos">Partidos</option>
           </select>
         </div>
-        <input type="" name="name">
-        <label for="s-option">DIGITE</label>
+        <input type="" name="name" placeholder="Digite">
         <button id="search">pesquisar</button>
       </div>
     {% endif %}
@@ -90,14 +89,14 @@
          {% if dado.siglaPartido%}
           <a href="/deputado/{{dado.id}}">
             <div class="avatar"><img src="{{dado.urlFoto}}"></div>        
-            <div class="name">{{dado.nome}}</div>
+            <span>{{dado.nome}}</span>
           </a>
         {% else %}
           {% if dado.semDados %}
           <h4>Pesquise pela sigla inteira do partido</h4>
           {% else %}
             <a href="/partido/{{dado.id}}">        
-              <div class="name">{{dado.sigla}}</div>
+              <span>{{dado.sigla}}</span>
             </a>
           {% endif %}  
         {% endif %}
@@ -132,6 +131,6 @@
 
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/../static/principal.js"></script>
+  <script type="text/javascript" src="../static/principal.js"></script>
 </body>
 </html>

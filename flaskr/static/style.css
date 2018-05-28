@@ -5,6 +5,10 @@ body, html{
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container{
   display: flex;
   flex-direction: column;
@@ -155,20 +159,23 @@ body{
   background-size: cover; 
   z-index: 2;
   cursor: pointer;
+  align-self: center;
 }
 
-.name{
-  color:gold;
+span.name{
+  padding-top: 10px;
+  color: #212121;
 }
 
 
 /* Select */
 .select-style {
   border: 1px solid rgb(0, 0, 0);
-  width: 120px;
+  width: auto;
   border-radius: 3px;
   overflow: hidden;
   background: #000000 url("icon-arrow_dropdown.svg") no-repeat 97% 60%;
+  margin-bottom: 2px;
 }
 
 .select-style select:focus {
@@ -189,7 +196,27 @@ select{
   color: rgb(255, 255, 255);
 }
 
-.resultado pesquisa{
+.resultado.pesquisa{
   margin: 10px;
   padding: 5px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.resultado.pesquisa a{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+button#search {
+  background: #212121;
+  border: none;
+  padding: 8px 30px;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
 }

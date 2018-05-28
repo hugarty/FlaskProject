@@ -12,9 +12,11 @@ $('input[type="radio"]').on('change', function () {
   } else {
     if ($('input[type="radio"]:checked').val() == "deputados") {
       $('select[name="cargo"]').val('Deputados');
+      $('input[name="name"]').attr("placeholder", "Nome do deputado");
     }
     else {
       $('select[name="cargo"]').val('Partidos');
+      $('input[name="name"]').attr("placeholder", "Sigla do partido");
     }
     $('#type').hide()
     $('#name').show()
@@ -28,10 +30,12 @@ $('select[name="cargo"]').on('change', function () {
     if ($('select[name="cargo"]').val() == "Deputados") {
       $('#s-option').prop('checked', false);
       $('#f-option').prop('checked', true);
+      $('input[name="name"]').attr("placeholder", "Nome do deputado");
     }
     else {
       $('#f-option').prop('checked', false);
       $('#s-option').prop('checked', true);
+      $('input[name="name"]').attr("placeholder", "Sigla do partido");
     }
     $('#type').hide()
     $('#name').show()
@@ -58,7 +62,7 @@ $('#search').on('click', function () {
               <div class="resultado pesquisa">
                 <a href="/deputado/${e.id}">
                 <div class="avatar"><img src="${e.urlFoto}"></div>        
-                <div class="name">${e.nome}</div>
+                <span class="name">${e.nome}</span>
                 </a>
               </div>
               `).appendTo('#results')
@@ -77,7 +81,7 @@ $('#search').on('click', function () {
               $(`
               <div class="resultado pesquisa">
               <a href="/partido/${e.id}">        
-              <div class="name">${e.sigla}</div>
+              <span class="name">${e.sigla}</span>
               </a>
               </div>
               `).appendTo('#results')
@@ -114,7 +118,7 @@ $('#next').on('click', function () {
             $(`
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
-              <div class="name">${e.nome}</div>
+              <span class="name">${e.nome}</span>
               </a>
               `).appendTo('#results')
           )
@@ -145,7 +149,7 @@ $('#previous').on('click', function () {
             $(`
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
-              <div class="name">${e.nome}</div>
+              <span class="name">${e.nome}</span>
               </a>
               `).appendTo('#results')
           )
@@ -175,7 +179,7 @@ $('#first').on('click', function () {
             $(`
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
-              <div class="name">${e.nome}</div>
+              <span class="name">${e.nome}</span>
               </a>
               `).appendTo('#results')
           )
@@ -205,7 +209,7 @@ $('#last').on('click', function () {
             $(`
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
-              <div class="name">${e.nome}</div>
+              <span class="name">${e.nome}</span>
               </a>
               `).appendTo('#results')
           )
