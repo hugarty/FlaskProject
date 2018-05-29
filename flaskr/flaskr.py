@@ -42,16 +42,22 @@ def deputado(deputadoId):
 
 
 
-@app.route('/partido/<string:partidoId>')
+@app.route('/partido/<string:partidoId>', methods=['GET'])
 def partido(partidoId):
+    if request.method == 'GET' and request.args:
+        dados = getPagina(request.args.get('paginador'))
+        return jsonify(dados)
     dados = getPartidoPorId(partidoId)
     membrosPartido = getDeputadoPorPartido(dados['sigla'])
     return render_template('partido.html', dados=dados, membrosPartido=membrosPartido) 
 
 
 
-@app.route('/estado/<string:siglaEstado>')
+@app.route('/estado/<string:siglaEstado>', methods=['GET'])
 def estado(siglaEstado):
+    if request.method == 'GET' and request.args:
+        dados = getPagina(request.args.get('paginador'))
+        return jsonify(dados)
     dados = getDeputadoPorEstado(siglaEstado)
     return render_template('estado.html', membrosPartido=dados) 
 
@@ -105,12 +111,14 @@ def getDeputadoPorId (id):
 
 def getDeputadoPorEstado (sigla, size = '30'):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaUf='+sigla+'&itens='+size)
-    return r.json()['dados']
+    dados = paginacao(r)
+    return dados
 
-
-def getDeputadoPorPartido (sigla):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaPartido='+sigla)
-    return r.json()['dados']
+    
+def getDeputadoPorPartido (sigla, size = '30'):
+    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaPartido='+sigla+'&itens='+size)
+    dados = paginacao(r)
+    return dados
 
 
 def getPartidosPorSigla (sigla):

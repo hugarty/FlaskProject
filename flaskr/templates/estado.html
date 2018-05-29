@@ -3,18 +3,47 @@
   {% if error %}  <p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <span>---------------------------------------------</span>
   
-  <h1>Partido.html</h1>
-  <h2>Resultado das pesquisas</h2>
+  <h1>Estado.html</h1>
 
-  {% for membro in membrosPartido %}
+  <div class="container" id="results">
+    {% for membro in membrosPartido %}
     <div>
       <a href="/deputado/{{ membro.id }}">
-        <img src="{{ membro.urlFoto}}" alt="">
+        <div class="avatar"><img src="{{ membro.urlFoto}}" alt=""></div>
         <h5> {{ membro.nome }} </h5>
       </a> 
       <a href="/partido/{{ membro.id }}"><h5> {{ membro.siglaPartido }} </h5></a> 
     </div>
-  {% else %}
+    {% else %}
     <i>Não existe ninguém aqui</i>
-  {% endfor %}
+    {% endfor %}
+  </div>
+  
+  {% if membrosPartido %}
+    <div id="paginadores">
+      {% if membrosPartido[0].linkFirstPage %}
+        <button name="{{membrosPartido[0].linkFirstPage}}" id="first">Primeira</button>
+      {% else %}
+        <button style="display: none" id="first">Primeira</button>
+      {% endif %}
+      {% if membrosPartido[0].linkPreviousPage %}
+        <button name="{{membrosPartido[0].linkPreviousPage}}" id="previous">Anterior</button>
+      {% else %}
+        <button style="display: none" id="previous">Anterior</button>
+      {% endif %}
+      {% if membrosPartido[0].linkNextPage %}
+        <button name="{{membrosPartido[0].linkNextPage}}" id="next">Proxima</button>
+      {% else %}
+        <button style="display: none" id="next">Proxima</button>
+      {% endif %}
+      {% if membrosPartido[0].linkLastPage %}
+        <button name="{{membrosPartido[0].linkLastPage}}" id="last">Ultima</button>
+      {% else %}
+        <button style="display: none" id="last">Ultima</button>
+      {% endif %}
+    </div>
+  {% endif%}
+    {% include "loader.html" %}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/js/estado.js"></script>
 {% endblock %}  

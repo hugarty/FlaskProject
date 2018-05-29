@@ -7,23 +7,58 @@
   <h2>Resultado das pesquisas</h2>
 
   {% if dados %} 
-   <h4> {{ dados.sigla }}</h4>
+    <h4> {{ dados.sigla }}</h4>
     {{ dados.id }} <br>
     {{ dados.nome }}<br> 
     {{ dados.status.totalPosse }}<br>
-    <h4>Lider</h4>
-    {{ dados.status.lider.nome }}<br>
-    {{ dados.status.lider.uf }}<br>
-    <h4>Membros Legislando</h4>
+    {% if dados.status.lider.nome %}
+      <h4>Lider</h4>
+      {{ dados.status.lider.nome }}<br>
+      {{ dados.status.lider.uf }}<br>
+    {% endif %}
+    <h4>Membros Legislando</h4> 
     {{ dados.status.totalMembros }}<br>
-  {% else %}
+    <h4>Membros</h4>
+    {% else %}
     Não encontrei seu partido
   {% endif %}
 
+  <div class="container" id="results">
   {% for membro in membrosPartido %}
-    <a href="/deputado/{{ membro.id }}"><h5> {{ membro.nome }} </h5></a> 
-    {{ membro.siglaUf }} <br> 
+    <a href="/deputado/{{ membro.id }}">
+      <div class="avatar"><img src="{{ membro.urlFoto}}" alt=""></div>
+      <h5> {{ membro.nome }} </h5>
+    </a> 
   {% else %}
     <i>Não existe ninguém aqui</i>
   {% endfor %}
+  </div>
+
+  {% if membrosPartido %}
+    <div id="paginadores">
+      {% if membrosPartido[0].linkFirstPage %}
+        <button name="{{membrosPartido[0].linkFirstPage}}" id="first">Primeira</button>
+      {% else %}
+        <button style="display: none" id="first">Primeira</button>
+      {% endif %}
+      {% if membrosPartido[0].linkPreviousPage %}
+        <button name="{{membrosPartido[0].linkPreviousPage}}" id="previous">Anterior</button>
+      {% else %}
+        <button style="display: none" id="previous">Anterior</button>
+      {% endif %}
+      {% if membrosPartido[0].linkNextPage %}
+        <button name="{{membrosPartido[0].linkNextPage}}" id="next">Proxima</button>
+      {% else %}
+        <button style="display: none" id="next">Proxima</button>
+      {% endif %}
+      {% if membrosPartido[0].linkLastPage %}
+        <button name="{{membrosPartido[0].linkLastPage}}" id="last">Ultima</button>
+      {% else %}
+        <button style="display: none" id="last">Ultima</button>
+      {% endif %}
+    </div>
+  {% endif%}
+  {% include "loader.html" %}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/js/partido.js"></script>
 {% endblock %}  
