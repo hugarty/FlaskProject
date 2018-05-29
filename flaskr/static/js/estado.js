@@ -16,6 +16,7 @@ $('#next').on('click', function () {
                 <div class="avatar"><img src="${e.urlFoto}"></div>        
                 <h5>${e.nome}</h5>
                 </a>
+                <a href="/partido/${e.uriPartido}>${e.siglaPartido}</a>
                 `).appendTo('#results')
             )
           }

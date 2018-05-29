@@ -12,7 +12,7 @@
         <div class="avatar"><img src="{{ membro.urlFoto}}" alt=""></div>
         <h5> {{ membro.nome }} </h5>
       </a> 
-      <a href="/partido/{{ membro.id }}"><h5> {{ membro.siglaPartido }} </h5></a> 
+      <a href="/partido/{{ membro.uriPartido }}"><h5> {{ membro.siglaPartido }} </h5></a> 
     </div>
     {% else %}
     <i>Não existe ninguém aqui</i>

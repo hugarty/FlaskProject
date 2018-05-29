@@ -112,6 +112,7 @@ def getDeputadoPorId (id):
 def getDeputadoPorEstado (sigla, size = '30'):
     r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaUf='+sigla+'&itens='+size)
     dados = paginacao(r)
+    dados = getIdPartidoDeCadaDeputado(dados)
     return dados
 
     
@@ -193,4 +194,12 @@ def paginacao (r):
 
         if 'last' in dictPagina:
             dados[0]['linkLastPage'] = dictPagina['last']
+    return dados
+
+
+def getIdPartidoDeCadaDeputado(r):
+    if len(r) > 0:
+        dados = r
+        for x in dados:
+            x['uriPartido'] =  x['uriPartido'][51:]
     return dados
