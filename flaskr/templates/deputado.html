@@ -53,9 +53,16 @@
             sala k kj k:{{dado.geral.ultimoStatus.gabinete.sala}} <br>
             predio k k j:{{dado.geral.ultimoStatus.gabinete.predio}} <br>
         </div>
-    </div>        
-
+    </div>
+    <div title="" class="container" id="graph" style="max-height: 400px;">
+        <div id="idDeputado" title="{{ dado.geral.id }}"></div>
+    </div>    
   {% else %}
     <h4>Deputado não encontrado</h4>
   {% endif %}
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/js/deputado.js"></script>
+
 {% endblock %}      

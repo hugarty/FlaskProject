@@ -207,7 +207,7 @@ select{
 .resultado.pesquisa{
   margin: 10px;
   padding: 5px;
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
   width: 200px;
   height: 200px;
   display: flex;
@@ -287,5 +287,6 @@ button#search {
 }
 
 footer{
+  margin-top: 30px;
   background-color: #212122;
 }

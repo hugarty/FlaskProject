@@ -1,9 +1,13 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-1 -*-
 
-import requests
+import pygal
+
+from controllerFolder.controller import *
 from flask import Flask, request, g, redirect, url_for, abort, \
      render_template, flash, jsonify
+
+
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , flaskr.py.
@@ -21,7 +25,6 @@ def index():
             return jsonify(dados)
         if 'partidos' in request.args:
             dados = getPartidosPorSigla(request.args['partidos'])
-            print(dados)
             return jsonify(dados)
     
     if request.method == 'POST' :
@@ -82,124 +85,32 @@ def notFound(error):
     return render_template('error.html'), 404
 
 
-#Caso queira pegar o nome do estado a siglado você pode 
-#criar um rest   full privado no firebase e dar get nele
+## -- Graph
 
 
-# Não sei importar outro arquivo .py 
-# Então vamos fingir que isso aqui é outra classe
+@app.route('/graph/deputado', methods=['GET'])
+def graph():
+    if request.method == 'GET' and request.args:
+        custom_style = pygal.style.Style(
+            background='#202020',
+            plot_background='#252525',
+            foreground='#FFFFFF',
+            foreground_strong='#FFFFFF',
+            foreground_subtle='#000000',
+            legend_font_size=22,
+            label_font_size=18,
+            major_label_font_size=16.5,
+            title_font_size=25,
+            opacity='.7',
+            opacity_hover='.99',
+            colors=('#FFFFAA', '#FF0000', '#FFFF00'))
 
-# ------------------------------------------------------------------------------------
+        valores = getDeputadoGastosDoisUltimosMeses(request.args['deputado'])
+        bar_chart = pygal.Bar(style=custom_style)
+        bar_chart.title = 'Valores em Reais(R$)' 
+        bar_chart.add(valores.get('mes1'), [ valores.get('valoresMes1')])
+        bar_chart.add(valores.get('mes2'), [ valores.get('valoresMes2')])
+        bar_chart.add('Total', [ valores.get('valoresMes1') + valores.get('valoresMes2')])
 
-# Paginador
-def getPagina (pagina):
-    r = requests.get(pagina)
-    dados = paginacao(r)
-    return dados
+        return bar_chart.render()
 
-
-def getDeputadosPorNome (nome, size = '30'):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?nome='+nome+'&itens='+size+'&ordenarPor=nome')
-    dados = paginacao(r)
-    return dados
-
-
-def getDeputadoPorId (id):
-    dados = infoDeputado(id)
-    return dados
-
-
-def getDeputadoPorEstado (sigla, size = '30'):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaUf='+sigla+'&itens='+size)
-    dados = paginacao(r)
-    dados = getIdPartidoDeCadaDeputado(dados)
-    return dados
-
-    
-def getDeputadoPorPartido (sigla, size = '30'):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?legislatura='+'55'+'&siglaPartido='+sigla+'&itens='+size)
-    dados = paginacao(r)
-    return dados
-
-
-def getPartidosPorSigla (sigla):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?sigla='+sigla+'&itens=40&ordenarPor=sigla')
-    return checkSiglaPartido(r)
-
-
-def getPartidoPorId (id):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos/'+id)
-    return r.json()['dados']
-
-
-def getProposicaoAutor(id):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/proposicoes?idAutor='+id+'&ordem=ASC&ordenarPor=id')
-    return r.json()['dados']
-
-
-def getProposicaoPorId(id):
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/proposicoes/'+id)
-    return r.json()['dados']
-
-
-def getEstados ():
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/referencias/uf')
-    return r.json()['dados']
-
-
-# ------
-
-
-def checkSiglaPartido (r):
-    if len(r.json()['dados']) > 0:
-        return r.json()['dados']
-    return [{'semDados': 'semDados'}]
-
-
-def infoDeputado(id):
-    dados = dict()
-    partidos  = []
-    
-    r = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?id='+id+'&idLegislatura=56&idLegislatura=55&idLegislatura=54&idLegislatura=53&idLegislatura=52&idLegislatura=51&idLegislatura=50&ordem=ASC&ordenarPor=idLegislatura')
-    r2 = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados/'+id)
-
-    if r2.status_code == 200:
-        for i in r.json()['dados']:
-            partidos.append(i['siglaPartido'])
-        dados['qtLegislatura'] = len(r.json()['dados'])
-        dados['anosLegislando'] = dados['qtLegislatura'] * 4
-        dados['partidos'] = partidos
-        dados['geral'] = r2.json()['dados']
-        dados['idPartido'] = r2.json()['dados']['ultimoStatus']['uriPartido'][51:]
-    return dados
-
-
-
-def paginacao (r):
-    dictPagina = dict()
-    for i in r.json()['links']:
-        dictPagina[i['rel']] = i['href']
-
-    dados = r.json()['dados']
-    
-    if len(dados) > 0:
-        if 'next' in dictPagina:
-            dados[0]['linkNextPage'] = dictPagina['next']
-
-        if 'previous' in dictPagina:
-            dados[0]['linkPreviousPage'] = dictPagina['previous']
-
-        if 'first' in dictPagina:
-            dados[0]['linkFirstPage'] = dictPagina['first']
-
-        if 'last' in dictPagina:
-            dados[0]['linkLastPage'] = dictPagina['last']
-    return dados
-
-
-def getIdPartidoDeCadaDeputado(r):
-    if len(r) > 0:
-        dados = r
-        for x in dados:
-            x['uriPartido'] =  x['uriPartido'][51:]
-    return dados
