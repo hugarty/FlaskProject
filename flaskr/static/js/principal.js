@@ -118,10 +118,12 @@ $('#next').on('click', function () {
         if (e.urlFoto != null && e.urlfoto != '') {
           return (
             $(`
+              <div class="resultado pesquisa">
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
               <span class="name">${e.nome}</span>
               </a>
+              </div>
               `).appendTo('#results')
           )
         }
@@ -149,10 +151,12 @@ $('#previous').on('click', function () {
         if (e.urlFoto != null && e.urlfoto != '') {
           return (
             $(`
+              <div class="resultado pesquisa">
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
               <span class="name">${e.nome}</span>
               </a>
+              </div>
               `).appendTo('#results')
           )
         }
@@ -179,10 +183,12 @@ $('#first').on('click', function () {
         if (e.urlFoto != null && e.urlfoto != '') {
           return (
             $(`
+              <div class="resultado pesquisa">
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
               <span class="name">${e.nome}</span>
               </a>
+              </div>
               `).appendTo('#results')
           )
         }
@@ -209,10 +215,12 @@ $('#last').on('click', function () {
         if (e.urlFoto != null && e.urlfoto != '') {
           return (
             $(`
+              <div>
               <a href="/deputado/${e.id}">
               <div class="avatar"><img src="${e.urlFoto}"></div>        
               <span class="name">${e.nome}</span>
               </a>
+              </div>
               `).appendTo('#results')
           )
         }
