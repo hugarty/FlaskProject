@@ -43,6 +43,8 @@ $('select[name="cargo"]').on('change', function () {
 })
 
 $('#search').on('click', function () {
+  $('#map').hide();
+  $('.container').css('flex-direction', 'column');
   $('#search').prop('disabled', true);
   var route = $('input[type="radio"]:checked').val();
   var name = $('input[name="name"]').val();

@@ -1,8 +1,9 @@
 body, html{
   min-height: 100vh;
-  background: #212121;
+  background: #2e2e30;
   font-family: 'Lato', sans-serif;
   margin: 0;
+  height:100%;
 }
 
 a {
@@ -13,13 +14,18 @@ a {
 .container{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  position:relative;
+  min-height: 100%;
+  height: auto !important;
   height: 100%;
+  margin: 0 auto -67px;
 }
 
+#map {margin: 0 50px;}
 #svg-map path { fill:#0094d9 }
-#svg-map text { fill:#fff; font:12px Arial-BoldMT, sans-serif; cursor:pointer }
+#svg-map text { fill:#fff; font-size:10px; cursor:pointer }
 #svg-map a{ text-decoration:none }
 #svg-map a:hover { cursor:pointer; text-decoration:none }
 #svg-map a:hover path{ fill:#003399 !important }
@@ -32,14 +38,17 @@ h1 {
   color: #AAAAAA;
 }
 
+#paginadores {
+  margin-bottom: 100px;
+}
+
 footer {
   background-color: #212122;
-  position: fixed;
-  left: 0;
+  position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
-  padding: 10px;
+  padding: 10px 0;
 }
 footer span{
   color: #AAAAAA;
@@ -165,12 +174,6 @@ input[type=radio]:checked ~ label{
 .alert a {
   color: #232323;
   font-weight: bold;
-}
-body{
-  background: #2e2e30;
-}
-*{
-  box-sizing: border-box;
 }
 
 #results {
