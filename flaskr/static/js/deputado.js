@@ -1,14 +1,14 @@
 $('#graph').ready( function () {
   
-  let a = '<h4>Quantidade de gastos do Deputado só nos ultimos dois meses</h4>';
+  let a = '<h3>Quantidade de gastos do Deputado nos últimos meses</h3>';
   var id = $('#idDeputado').attr('title');
     $.ajax({
       method: "GET",
       url: '/graph/deputado',
       data: {['deputado']: id},
       success: function (res) {
-        $(`${a}
-        ${res}`).appendTo('#graph')
+        console.log(res)
+        $(`${a}${res}`).appendTo('#graph');
       },
       complete: function () {}
     })

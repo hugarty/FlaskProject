@@ -27,9 +27,11 @@
                     <span>{{dado.geral.escolaridade}}</span>
                 </div>
             </div>
+            <div style="margin-top: 10px; text-transform: uppercase;">
+              <a href="/proposicoesAutor/{{ dado.geral.id }}">Proposições do Deputado</a>
+            </div>
         </div>
         <div class="info-leg">
-            <h2 style="text-transform: uppercase;">Legislaturas</h2>
             <div>
                 <h3>Anos legislados</h3>
                 <span class="number">{{ dado.qtLegislatura }}</span>
@@ -41,15 +43,18 @@
             <div>
                 <h3>Legislou pelo(s) Partido(s)</h3>
                 {% for x in dado.partidos %}
-                    <span>{{x}}</span>
+                  <span>{{x}}</span>
                 {% endfor %}
             </div>
-            <div>
-              <a href="/proposicoesAutor/{{ dado.geral.id }}">Proposições do Deputado</a>
-            </div>
+
         </div>
+        <div id="graph">
+            <div id="idDeputado" title="{{ dado.geral.id }}"></div>
+        </div>
+      </div>
+      <div>
         <div class="contato">
-            <h2>CONTATE-O</h2>
+            <h2 style="text-align: center;">CONTATE-O</h2>
             <div>
                 <img src="../static/phone.svg">
                 <span>{{dado.geral.ultimoStatus.gabinete.telefone}}</span>
@@ -60,16 +65,10 @@
             </div>
             <div>
                 <img src="../static/building.svg">
-                <span>Prédio: {{dado.geral.ultimoStatus.gabinete.predio}}</span>
-            </div>
-            <div>
-                <span>Sala: {{dado.geral.ultimoStatus.gabinete.sala}}</span>
+                <span>Prédio: {{dado.geral.ultimoStatus.gabinete.predio}} | Sala: {{dado.geral.ultimoStatus.gabinete.sala}}</span>
             </div>
         </div>
     </div>
-<!--     <div title="" class="container" id="graph" style="max-height: 400px;">
-        <div id="idDeputado" title="{{ dado.geral.id }}"></div>
-    </div>   -->  
   {% else %}
     <h4>Deputado não encontrado</h4>
   {% endif %}
