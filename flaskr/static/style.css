@@ -22,6 +22,12 @@ a {
   height: 100%;
   margin: 0 auto -67px;
 }
+.page{
+  min-height: 100%;
+}
+.page .container{
+  flex-direction: column !important;
+}
 
 #map {margin: 0 50px;}
 #svg-map path { fill:#0094d9 }
@@ -36,6 +42,11 @@ hr { border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,
 
 h1 {
   color: #AAAAAA;
+}
+
+h3 {
+  font-weight: 100;
+  color: #fff;
 }
 
 #paginadores {
@@ -276,9 +287,9 @@ button#search {
 
 .dep {
   width: 100%;
-  padding: 0px 10px;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .dep > div {
@@ -292,6 +303,8 @@ button#search {
   align-items: center;
 }
 .dep .info-leg {
+  align-items: center;
+  text-align: center;
 }
 
 .dep .info-geral h2 {
@@ -328,13 +341,16 @@ button#search {
 }
 .dep .contato {
   align-items: center;
-<<<<<<< HEAD
+}
+.dep .contato div{
+  justify-content: center;
+}
+.dep div.info-leg div span.number{
+  font-size: 100px;
+  color: #E91E63;
 }
 
 footer{
   margin-top: 30px;
   background-color: #212122;
 }
-=======
-}
->>>>>>> f18fb119106c603452112ff614a40e5405a36563

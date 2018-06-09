@@ -29,16 +29,24 @@
             </div>
         </div>
         <div class="info-leg">
-            <h5>Quantidade de legislaturas</h5>
-            {{ dado.qtLegislatura }} <br>
-            Anos legislados ao final do ultimo: {{ dado.anosLegislando}}
-            <h5>Legislou pelo(s) Partido(s): </h5>
-            {% for x in dado.partidos %}
-              {{x}}
-            {% endfor %}
-
-            <h4>Proposições</h4>
-            <a href="/proposicoesAutor/{{ dado.geral.id }}">Proposições do Deputado</a>
+            <h2 style="text-transform: uppercase;">Legislaturas</h2>
+            <div>
+                <h3>Anos legislados</h3>
+                <span class="number">{{ dado.qtLegislatura }}</span>
+            </div>
+            <div>
+                <h3>Ao final do último mandato</h3>
+                <span class="number">{{ dado.anosLegislando}}</span>
+            </div>
+            <div>
+                <h3>Legislou pelo(s) Partido(s)</h3>
+                {% for x in dado.partidos %}
+                    <span>{{x}}</span>
+                {% endfor %}
+            </div>
+            <div>
+              <a href="/proposicoesAutor/{{ dado.geral.id }}">Proposições do Deputado</a>
+            </div>
         </div>
         <div class="contato">
             <h2>CONTATE-O</h2>
@@ -50,13 +58,18 @@
                 <img src="../static/mail.svg">
                 <span>{{dado.geral.ultimoStatus.gabinete.email}}</span>
             </div>
-            sala k kj k:{{dado.geral.ultimoStatus.gabinete.sala}} <br>
-            predio k k j:{{dado.geral.ultimoStatus.gabinete.predio}} <br>
+            <div>
+                <img src="../static/building.svg">
+                <span>Prédio: {{dado.geral.ultimoStatus.gabinete.predio}}</span>
+            </div>
+            <div>
+                <span>Sala: {{dado.geral.ultimoStatus.gabinete.sala}}</span>
+            </div>
         </div>
     </div>
-    <div title="" class="container" id="graph" style="max-height: 400px;">
+<!--     <div title="" class="container" id="graph" style="max-height: 400px;">
         <div id="idDeputado" title="{{ dado.geral.id }}"></div>
-    </div>    
+    </div>   -->  
   {% else %}
     <h4>Deputado não encontrado</h4>
   {% endif %}
@@ -64,5 +77,4 @@
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/js/deputado.js"></script>
-
 {% endblock %}      

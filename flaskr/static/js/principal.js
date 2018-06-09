@@ -1,3 +1,7 @@
+if ( $('#results').children().length > 0 ) {
+  $('#map').hide();
+  $('.container').css('flex-direction', 'column');
+}
 function deleteResultsChilds() {
   var result = document.getElementById('results');
 
