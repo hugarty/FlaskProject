@@ -76,6 +76,7 @@ def proposicoesAutor (idAutor):
 @app.route('/proposicao/<string:idProposicao>')
 def proposicao (idProposicao):
     dados = getProposicaoPorId(idProposicao)
+    print(dados)
     return render_template('proposicao.html', dados=dados) 
 
 

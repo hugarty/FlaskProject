@@ -1,24 +1,26 @@
 {% extends "header.html" %}
 {% block body %}
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-  <span>---------------------------------------------</span>
   
-  <h1>Proposições do Parlamentar.html</h1>
-  <h2>Resultado das pesquisas</h2>
+  <h3>Proposições</h3>
 
   {% if dados %}
+    <div class="proposicoes">
     {% for dado in dados %}
-     <h4> {{ dado.sigla }} </h4>
-     Ementa: {{ dado.ementa }} <br> 
-     ano  : {{ dado.ano }}  <br>
-     numero: {{ dado.numero }}  <br>
-     Tipo(sigla) : {{dado.siglaTipo}}
-     <a href="/proposicao/{{ dado.id }}">Mais detalhes sobre a proposicao</a> <br>    
-     ----------------------------------<br>
+        <div>
+          <h3>{{dado.siglaTipo}} {{ dado.numero }}/{{ dado.ano }}</h3>
+          <span>{{ dado.ementa }}</span>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/proposicao/{{ dado.id }}"><span>Mais detalhes</span></a>
+        </div>
+        
+        <hr/>
     {% else %}
       <li><em>Pesquisa algo ai.</em>
     {% endfor %}
+    </div>
   {% else %}
-    <h4>Autor não tem proposições ou não existe autor</h4>
+    <h3>Nada encontrado</h3>
   {% endif %}
 {% endblock %}  

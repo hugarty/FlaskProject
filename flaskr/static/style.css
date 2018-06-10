@@ -381,6 +381,31 @@ button#search {
 
 }
 
+.proposicoes {
+  padding: 50px 250px;
+}
+.proposicoes div span{
+  color: #fff;
+}
+.proposicoes div a span{
+  color: #E91E63;
+}
+.proposicao-details{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+}
+.proposicao-details div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 20px;
+  text-align: left;
+}
+.proposicao-details div > div{
+}
 
 footer{
   margin-top: 30px;

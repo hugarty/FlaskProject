@@ -1,19 +1,33 @@
 {% extends "header.html" %}
 {% block body %}
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-  <span>---------------------------------------------</span>
   
-  <h1>proposicao.html</h1>
-
   {% if dados %}
-    <h4> {{ dados.descricaoTipo }}</h4>
-    Data Apresentacao: {{dados.dataApresentacao}} <br>
-    Ementa: {{dados.ementa }} <br>
-    Ano: {{dados.ano }} <br>
+    <h3 style="text-transform: uppercase;">{{ dados.descricaoTipo }}</h3> 
+    <span style="color: #E91E63">{{ dados.numero }}/{{dados.ano}}</span>
+    <span style="color: #E91E63">{{ dados.statusProposicao.regime }}</span>
     <a href="{{dados.urlInteiroTeor }}">
-      Inteiro teor: {{dados.urlInteiroTeor }} <br>
+      <span style="text-transform: uppercase;">Na íntegra</span>
     </a>
-    Situação: {{dados.descricaoSitacao }} <br>
+    <div class="proposicao-details">
+      <div>
+        <h2 style="font-weight: 100; color: #fff">{{dados.ementa}}</h2>
+      </div>
+      <div style="text-align: center;">
+        <div>
+          <h3>Data Apresentação</h3>
+          <span style="color: #E91E63">{{dados.dataApresentacao}}</span>
+        </div>
+        <div style="text-align: center;">
+          <h3>Situação</h3>
+          <span style="color: #E91E63">{{dados.statusProposicao.descricaoSituacao}}</span>
+          <span style="color: #E91E63">{{ dados.statusProposicao.despacho }}</span>
+        </div>
+      </div>
+    </div>
+    {% if dados.keywords %}
+      <span style="font-size: 11px">tags: {{ dados.keywords }}</span>
+    {% endif %}
   
   {% else %}
     <li><em>Pesquisa algo ai.</em>

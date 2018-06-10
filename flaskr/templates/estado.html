@@ -1,23 +1,28 @@
 {% extends "header.html" %}
 {% block body %}
   {% if error %}  <p class=error><strong>Error:</strong> {{ error }}{% endif %}
-  <span>---------------------------------------------</span>
-  
-  <h1>Estado.html</h1>
 
-  <div class="container" id="results">
-    {% for membro in membrosPartido %}
-    <div>
-      <a href="/deputado/{{ membro.id }}">
-        <div class="avatar"><img src="{{ membro.urlFoto}}" alt=""></div>
-        <h5> {{ membro.nome }} </h5>
-      </a> 
-      <a href="/partido/{{ membro.uriPartido }}"><h5> {{ membro.siglaPartido }} </h5></a> 
+  <div class="container" >
+    <div id="results">  
+      {% for dado in membrosPartido %}
+       <div class="resultado pesquisa">
+         {% if dado.siglaPartido%}
+          <a href="/deputado/{{dado.id}}">
+            <div class="avatar"><img src="{{dado.urlFoto}}"></div>        
+            <span>{{dado.nome}}</span>
+          </a>
+        {% else %}
+          {% if dado.semDados %}
+          <h4>Pesquise pela sigla inteira do partido</h4>
+          {% else %}
+            <a href="/partido/{{dado.id}}">        
+              <span>{{dado.sigla}}</span>
+            </a>
+          {% endif %}  
+        {% endif %}
+      </div>
+      {% endfor %}
     </div>
-    {% else %}
-    <i>Não existe ninguém aqui</i>
-    {% endfor %}
-  </div>
   
   {% if membrosPartido %}
     <div id="paginadores">
@@ -42,8 +47,8 @@
         <button style="display: none" id="last">Ultima</button>
       {% endif %}
     </div>
+  </div>
   {% endif%}
     {% include "loader.html" %}
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/js/estado.js"></script>
 {% endblock %}  
