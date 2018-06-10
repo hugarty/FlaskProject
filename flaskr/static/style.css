@@ -354,9 +354,11 @@ button#search {
 .contato div img{
   margin-right: 10px;
 }
+.dep div.info-leg div span{
+  color: #E91E63;
+}
 .dep div.info-leg div span.number{
   font-size: 100px;
-  color: #E91E63;
 }
 .dep div#graph {
   max-height: 500px;
@@ -365,7 +367,23 @@ button#search {
   max-width: 500px;
 }
 
+.partido {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.partido div{
+  margin: 0px 50px;
+}
+.partido div span.number{
+  font-size: 50px;
+  color: #E91E63;
+
+}
+
+
 footer{
   margin-top: 30px;
   background-color: #212122;
 }
+

@@ -12,10 +12,12 @@ $('#next').on('click', function () {
           if (e.urlFoto != null && e.urlfoto != '') {
             return (
               $(`
+                <div class="resultado pesquisa">
                 <a href="/deputado/${e.id}">
                 <div class="avatar"><img src="${e.urlFoto}"></div>        
                 <h5>${e.nome}</h5>
                 </a>
+                </div>
                 `).appendTo('#results')
             )
           }
@@ -43,10 +45,12 @@ $('#next').on('click', function () {
           if (e.urlFoto != null && e.urlfoto != '') {
             return (
               $(`
+                <div class="resultado pesquisa">
                 <a href="/deputado/${e.id}">
                 <div class="avatar"><img src="${e.urlFoto}"></div>        
                 <span class="name">${e.nome}</span>
                 </a>
+                </div>
                 `).appendTo('#results')
             )
           }
@@ -73,10 +77,12 @@ $('#next').on('click', function () {
           if (e.urlFoto != null && e.urlfoto != '') {
             return (
               $(`
+                <div class="resultado pesquisa">
                 <a href="/deputado/${e.id}">
                 <div class="avatar"><img src="${e.urlFoto}"></div>        
                 <span class="name">${e.nome}</span>
                 </a>
+                </div>
                 `).appendTo('#results')
             )
           }
@@ -103,10 +109,12 @@ $('#next').on('click', function () {
           if (e.urlFoto != null && e.urlfoto != '') {
             return (
               $(`
+                <div class="resultado pesquisa">
                 <a href="/deputado/${e.id}">
                 <div class="avatar"><img src="${e.urlFoto}"></div>        
                 <span class="name">${e.nome}</span>
                 </a>
+                </div>
                 `).appendTo('#results')
             )
           }
@@ -161,3 +169,14 @@ function deleteResultsChilds() {
   }
 }
   
+$('.number').each(function () {
+  $(this).prop('Counter',0).animate({
+      Counter: $(this).text()
+  }, {
+      duration: 1000,
+      easing: 'swing',
+      step: function (now) {
+          $(this).text(Math.ceil(now));
+      }
+  });
+});
