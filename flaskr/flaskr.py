@@ -2,6 +2,7 @@
 # -*- coding: iso-8859-1 -*-
 
 import pygal
+import pytest
 
 from controllerFolder.controller import *
 from flask import Flask, request, g, redirect, url_for, abort, \
