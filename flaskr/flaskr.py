@@ -4,18 +4,18 @@
 import pygal
 import pytest
 
-from controllerFolder.controller import *
+from .controllerFolder.controller import *
 from flask import Flask, request, g, redirect, url_for, abort, \
-     render_template, flash, jsonify
+    render_template, flash, jsonify, Blueprint
 
 
+bp = Blueprint ( 'flaskr' , __name__ , url_prefix = '/' )
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , flaskr.py.
 
 
-
-@app.route('/', methods=['POST','GET'])
+@bp.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'GET' and request.args:
         if 'deputados' in request.args :
@@ -39,14 +39,14 @@ def index():
 
 
 
-@app.route('/deputado/<string:deputadoId>')
+@bp.route('/deputado/<string:deputadoId>')
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     return render_template('deputado.html', dado=dados)
 
 
 
-@app.route('/partido/<string:partidoId>', methods=['GET'])
+@bp.route('/partido/<string:partidoId>', methods=['GET'])
 def partido(partidoId):
     if request.method == 'GET' and request.args:
         dados = getPagina(request.args.get('paginador'))
@@ -57,7 +57,7 @@ def partido(partidoId):
 
 
 
-@app.route('/estado/<string:siglaEstado>', methods=['GET'])
+@bp.route('/estado/<string:siglaEstado>', methods=['GET'])
 def estado(siglaEstado):
     if request.method == 'GET' and request.args:
         dados = getPagina(request.args.get('paginador'))
@@ -67,14 +67,14 @@ def estado(siglaEstado):
 
 
 
-@app.route('/proposicoesAutor/<string:idAutor>')
+@bp.route('/proposicoesAutor/<string:idAutor>')
 def proposicoesAutor (idAutor):
     dados = getProposicaoAutor(idAutor)
     return render_template('proposicaoAutor.html', dados=dados) 
 
 
 
-@app.route('/proposicao/<string:idProposicao>')
+@bp.route('/proposicao/<string:idProposicao>')
 def proposicao (idProposicao):
     dados = getProposicaoPorId(idProposicao)
     print(dados)
@@ -82,7 +82,7 @@ def proposicao (idProposicao):
 
 
 
-@app.errorhandler(404)
+@bp.errorhandler(404)
 def notFound(error):
     return render_template('error.html'), 404
 
@@ -90,7 +90,7 @@ def notFound(error):
 ## -- Graph
 
 
-@app.route('/graph/deputado', methods=['GET'])
+@bp.route('/graph/deputado', methods=['GET'])
 def graph():
     if request.method == 'GET' and request.args:
         custom_style = pygal.style.Style(
