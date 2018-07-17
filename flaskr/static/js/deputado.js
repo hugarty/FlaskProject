@@ -1,3 +1,4 @@
+// Plota o grafico na tela
 $('#graph').ready( function () {
   
   let a = '<h3>Gastos nos últimos meses</h3>';
@@ -13,6 +14,7 @@ $('#graph').ready( function () {
     })
   });
 
+//animação de contagem dos elementos com class .number
 $('.number').each(function () {
   $(this).prop('Counter',0).animate({
       Counter: $(this).text()
