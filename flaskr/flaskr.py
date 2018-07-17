@@ -1,19 +1,13 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-1 -*-
-
 import pygal
-
-from controllerFolder.controller import *
+from .controllerFolder.controller import *
 from flask import Flask, request, g, redirect, url_for, abort, \
-     render_template, flash, jsonify
-
-
-
+    render_template, flash, jsonify
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , flaskr.py.
 
-
-
+# Função que é executada quando ocorre uma chamada ao caminho raiz da página
 @app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'GET' and request.args:
@@ -26,25 +20,21 @@ def index():
         if 'partidos' in request.args:
             dados = getPartidosPorSigla(request.args['partidos'])
             return jsonify(dados)
-    
     if request.method == 'POST' :
         if request.form['cargo'] == 'Deputados':
             dados = getDeputadosPorNome(request.form['pesquisa'])
             return render_template('principal.html', dados=dados)
         dados = getPartidosPorSigla(request.form['pesquisa'])
         return render_template('principal.html', dados=dados)
-
     return render_template('principal.html')
 
-
-
+# Função que é executada quando ocorre uma chamada ao caminho '/deputado/id'
 @app.route('/deputado/<string:deputadoId>')
 def deputado(deputadoId):
     dados = getDeputadoPorId(deputadoId)
     return render_template('deputado.html', dado=dados)
 
-
-
+# Função que é executada quando ocorre uma chamada ao caminho '/partido/id'
 @app.route('/partido/<string:partidoId>', methods=['GET'])
 def partido(partidoId):
     if request.method == 'GET' and request.args:
@@ -54,8 +44,7 @@ def partido(partidoId):
     membrosPartido = getDeputadoPorPartido(dados['sigla'])
     return render_template('partido.html', dados=dados, membrosPartido=membrosPartido) 
 
-
-
+# Função que é executada quando ocorre uma chamada ao caminho '/estado/id'
 @app.route('/estado/<string:siglaEstado>', methods=['GET'])
 def estado(siglaEstado):
     if request.method == 'GET' and request.args:
@@ -64,31 +53,25 @@ def estado(siglaEstado):
     dados = getDeputadoPorEstado(siglaEstado)
     return render_template('estado.html', membrosPartido=dados) 
 
-
-
+# Função que é executada quando ocorre uma chamada ao caminho '/proposicoesAutor/id'
 @app.route('/proposicoesAutor/<string:idAutor>')
 def proposicoesAutor (idAutor):
     dados = getProposicaoAutor(idAutor)
     return render_template('proposicaoAutor.html', dados=dados) 
 
-
-
+# Função que é executada quando ocorre uma chamada ao caminho '/proposicao/id'
 @app.route('/proposicao/<string:idProposicao>')
 def proposicao (idProposicao):
     dados = getProposicaoPorId(idProposicao)
     print(dados)
     return render_template('proposicao.html', dados=dados) 
 
-
-
+# Função que é executada quando uma página não é encontrada
 @app.errorhandler(404)
 def notFound(error):
     return render_template('error.html'), 404
 
-
-## -- Graph
-
-
+# Gera grafico com dados dos gastos dos politicos
 @app.route('/graph/deputado', methods=['GET'])
 def graph():
     if request.method == 'GET' and request.args:
@@ -105,13 +88,10 @@ def graph():
             opacity='.7',
             opacity_hover='.99',
             colors=('#FFFFAA', '#FF0000', '#FFFF00'))
-
         valores = getDeputadoGastosDoisUltimosMeses(request.args['deputado'])
         bar_chart = pygal.Bar(style=custom_style)
         bar_chart.title = 'Valores em Reais(R$)' 
         bar_chart.add(valores.get('mes1'), [ valores.get('valoresMes1')])
         bar_chart.add(valores.get('mes2'), [ valores.get('valoresMes2')])
         bar_chart.add('Total', [ valores.get('valoresMes1') + valores.get('valoresMes2')])
-
         return bar_chart.render()
-
