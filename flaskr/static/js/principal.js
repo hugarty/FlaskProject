@@ -1,7 +1,10 @@
+//verifica se já tem resultados caso tenha esconde o mapa
 if ( $('#results').children().length > 0 ) {
   $('#map').hide();
   $('.container').css('flex-direction', 'column');
 }
+
+//deleta resultados
 function deleteResultsChilds() {
   var result = document.getElementById('results');
 
@@ -46,6 +49,7 @@ $('select[name="cargo"]').on('change', function () {
   }
 })
 
+//executa o ajax caso clique no botão pesquisar
 $('#search').on('click', function () {
   $('#map').hide();
   $('.container').css('flex-direction', 'column');
@@ -107,8 +111,7 @@ $('#search').on('click', function () {
   })
 })
 
-
-
+//paginador que leva a próxima página da pesquisa
 $('#next').on('click', function () {
   $('#next').prop('disabled', true);
   $.ajax({
@@ -140,8 +143,7 @@ $('#next').on('click', function () {
   })
 });
 
-
-
+//paginador que leva a página anterior da pesquisa
 $('#previous').on('click', function () {
   $('#previous').prop('disabled', true);
   $.ajax({
@@ -173,7 +175,7 @@ $('#previous').on('click', function () {
   })
 });
 
-
+//paginador que leva a primeira página da pesquisa
 $('#first').on('click', function () {
   $('#first').prop('disabled', true);
   $.ajax({
@@ -205,7 +207,7 @@ $('#first').on('click', function () {
   })
 });
 
-
+//paginador que leva a ultima página da pesquisa
 $('#last').on('click', function () {
   $('#last').prop('disabled', true);
   $.ajax({
@@ -237,6 +239,7 @@ $('#last').on('click', function () {
   })
 });
 
+//deleta alguns elementos, esconde semretorno, mostra o loader e esconde os paginadores 
 function antesDeEnviar (){
   $('#semRetorno').hide();
   deleteResultsChilds();
@@ -244,6 +247,7 @@ function antesDeEnviar (){
   escondeBotoes ();
 }
 
+// mostra botões de paginação se necessário
 function paginacao (e){
   if(e.linkNextPage != null && e.linkNextPage != ''){
     $('#next').attr('name', e.linkNextPage);
@@ -263,6 +267,7 @@ function paginacao (e){
   }
 }
 
+//esconde os botões de paginação
 function escondeBotoes (){
   $('#next').hide();
   $('#previous').hide();
@@ -270,6 +275,7 @@ function escondeBotoes (){
   $('#last').hide();
 }
 
+//executa a animação de contagem dos elementos com class number  
 $('.number').each(function () {
   $(this).prop('Counter',0).animate({
       Counter: $(this).text()
